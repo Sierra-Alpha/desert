@@ -53,15 +53,12 @@ build instructions to Docker to be able to build the same container every time.
 
 #### Issues and Solutions
 
- - **Spacemacs is better in a GUI**
- 
+ - **Spacemacs is better in a GUI**  
     Docker containers are mainly set up to host shell applications and as such the base images don't contain
     an X server for rendering GUI applications and the console connections are all text based. While emacs 
     and Spacemacs both can run in a shell the user experience these days is much nicer in a GUI.
     
-    
-    **Solution**
-    
+    **Solution**  
     The solution is to install and Xserver onto the Docker image and a virtual network computing (VNC) server 
     to be able to remote desktop 
     in and interact with the chosen application running in a Docker container. My first avenue was to install 
@@ -75,32 +72,32 @@ build instructions to Docker to be able to build the same container every time.
     the need for the desktop environment and Spacemacs can render into this virtual frame and x11vnc can serve
     this to any vnc client connecting to the VNCserver.
     
- - **Screen resolution**
+ - **Screen resolution**  
  
-    **Solution**
+    **Solution**  
     
- - **Dotfiles**
-
+ - **Dotfiles**  
    In the unix-like world dot files are stored in a users home directory and used to store local customisations
    for user preferences for all sorts of programs, the problem is that they are not stored in a standard way 
    and in order to be able to have repeatable user experience we want to be able to store them in a git 
    repository which also allows for verioning if a new configuration doesn't result in desired affect for 
    example.
    
-   **Solution**
-
+   **Solution**  
    Fortunatley the GNU team are to our rescue again, with GNU Stow. Stow is a symlink farm manager. What this
    means is that you can set up a standard folder with a specific stow structure and it will move your dotfiles 
    into this folder then create and symlink back to the original location for the programs to reference. The 
    advantage here is that the dotfiles folder can be managed by git for versioning and pushed to a public repo
    on GitHub for replicating to any machine that has internet access.
 
- - **Build Automation**
-
+ - **Build Automation**  
     Docker is wonderful but you can end up needing to pass in a lot of commands to build the images securely.
     
-    **Solution**
+    **Solution**  
+
+
+ - **Security**  
+    Write some stuff here
     
- - **Security**
- 
-   **Solution**
+   **Solution**  
+   And some more stuff here 

@@ -1,12 +1,16 @@
 # Project
 
 <details>
-  <summary>## Table of Contents</summary>
+  <summary> Table of Contents</summary>
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
 - [Project](#project)
     - [Overview](#overview)
+    - [Editor](#editor)
+        - [Outcomes](#outcomes)
+        - [The Process](#the-process)
+            - [Issues and Solutions](#issues-and-solutions)
 
 <!-- markdown-toc end -->
 </details>

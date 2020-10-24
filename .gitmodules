@@ -1,0 +1,12 @@
+[submodule "dotfiles"]
+	path = dotfiles
+	url = git@github.com:sierra-alpha/dotfiles.git
+[submodule "matapihi"]
+	path = matapihi
+	url = git@github.com:sierra-alpha/matapihi.git
+[submodule "kainga-conf"]
+	path = kainga-conf
+	url = git@github.com:sierra-alpha/kainga-conf.git
+[submodule "wakahiki"]
+	path = wakahiki
+	url = git@github.com:sierra-alpha/wakahiki.git

@@ -2,7 +2,7 @@
 ---
 # Kainga
 
-A `kainga` (home/~) away from `kaianga` (home/~)
+A `kainga` (home/\~) away from `kaianga` (home/\~)
 
 ## TL;DR (Too Long; Didn't Read)
 

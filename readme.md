@@ -185,6 +185,12 @@ GH under my profile which you will want to use `q` to skip. After all that's
 loaded eventually it will start the emacs server and then launch emacs and
 you're in.
 
+Like everything that's good it's best to start it with a restart, (in spacemacs 
+the mode line won't render properly till we restart) so `ctrl` + `x`, `ctrl` + `c`
+to exit emacs which will start `matapihi` to terminate, follow the prompts to exit 
+and then reconnect to the vpn, this will reload and this time when emacs starts 
+then it should display correctly.  
+
 You can navigate to a terminal using `alt` + `tab` or pull one up in emacs by
 using `spc` + `'` then check the output 
 of the `xrandr` command and chose a resolution of your display that fits best

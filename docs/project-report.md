@@ -25,6 +25,45 @@ To build any software you need the right tools, and you need flexibility, the id
 any terminal and start coding in a way that is familiar to you gives way to this first topic the 
 [Editor](#editor).
 
+## Inspiration
+
+Because I needed to do something for a Uni project...
+
+But really this:
+
+The inspiration came because I have multiple OS's that I develop on, Windows,
+Linux and MacOS, both for work and home, I used to use VS Code but my remote
+connection for work was over a Citrix Session and some how VS Code caused the
+Citrx session to crash so I had to get used to different tools. I tried Eclipse
+because most of the rest of my team used it, but I had dabbled with it at uni and
+hated it, and using it for work didn't change my feelings for it. I tried Vim
+because some of my uni friends had always fanboyed about it but I struggled to
+get the packages downloaded through the protected work network (I now realise
+that was probebly more related to proxy settings than Vim, but the ship has
+sailed). One of the old beards at work (disclaimer; they don't really have a
+beard, I'm more referring to their unix wizardry level) uses emacs and kept
+suggesting I use that, I gave it a go and was scared away, as most people are,
+then in time I got used to it, then I fell to the _evil_ side combining Vim
+keybindings with emacs power, and then it was time to delve into the beautiful
+preconfigured emacs that is spacemacs. I knew within hours of trying it that I
+wanted to use it as my development tool, I set up configuring it in my Linux
+environment and loved it, I went to use it on my Windows environment and at
+first glance everything seemed to be the same out of the box which was very
+promising.
+
+However there was a snag, not everything worked as well in windows,
+Spacemacs/Emacs functions that relied on unix commands like grep didn't work in
+the windows ecosystem, they required different configuration, but I wanted one
+.emacs to rule them all I didn't want to have a linux configuration, a windows
+configuration and then a MacOS configuration.
+
+It was around now that I had discovered containerisation for another Uni paper I
+was taking on cloud and IoT. It seemed a Docker container that could run on all
+machines that housed the emacs/spacemeacs configuration that suited me was the
+answer, there were some initial hurdles, such as getting a GUI on a container
+you can read about the whole process at the [project
+process docs](./docs/project-process.md) if you are interested.
+
 ## Editor
 
 The issue I find is that I use different devices and these are different platforms, and the developer

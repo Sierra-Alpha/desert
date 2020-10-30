@@ -7,6 +7,29 @@ A `kainga` (home/`~`) away from `kainga` (home/`~`)
 A containerised Xserver with VNC over SSH tunnels. Launching a Spacemacs editor
 with a preferred setup.
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [Kainga](#kainga)
+    - [TL;DR (Too Long; Didn't Read)](#tldr-too-long-didnt-read)
+    - [Description](#description)
+        - [Screenshots](#screenshots)
+        - [Why?](#why)
+    - [current submodule versions](#current-submodule-versions)
+    - [Quick Start/Install](#quick-startinstall)
+    - [Configure](#configure)
+        - [Matapihi](#matapihi)
+        - [Kainga-Conf](#kainga-conf)
+        - [Wakahiki](#wakahiki)
+        - [Security](#security)
+    - [Use Cases](#use-cases)
+    - [Features](#features)
+    - [Known Bugs](#known-bugs)
+    - [More Info](#more-info)
+    - [Contributing](#contributing)
+
+<!-- markdown-toc end -->
+
 ## Description
 
 Kainga is the Te Reo Moari word for home, it is implemented as follows.
@@ -19,23 +42,23 @@ tunnel.
 
 This implementation uses Docker for the containerisation, this part is named
 `matapihi`, the Te Reo Moari word for window, as it is the window into the
-house, home or `~`. The container uses Xvnc to start the X server and provide
+house, home or `~`. The container uses Xvnc to start the Xserver and provide
 the VNC server.
 
 Next once SSH'd into the container and port forwarding to the containers 5900
 (VNC) port, you then access the container through a VNC viewer. At this point
-the `matapihi` init will be launched where you can add urls to scripts to run at
+the matapihi init will be launched where you can add urls to scripts to run at
 the initial VNC client connection, also available is an exit script for tearing
 doan an environment when the VNC exits.
 
-The script provided in the `matapihi` init needs to call some application to run
+The script provided in the matapihi init needs to call some application to run
 in the foreground else the script will finish and cause the Xserver to prompt
 for exiting.
 
-In this `kaianga` use of `matapihi` we run a script hosted in my `kainga-conf`
+In this `kainga` use of matapihi we run a script hosted in my `kainga-conf`
 repo that installs `wakahiki` (The Te Reo Moari word for crane, as it picks up
-the scripts and builds the container with them) which reads form the
-`kainga-conf` file in the `kainga-conf` repo and then sets up the environment
+the scripts and builds the container with them) which reads from the
+kainga-conf file in the kainga-conf repo and then sets up the environment
 and launches spacemacs when ready.
 
 ### Screenshots
@@ -45,12 +68,12 @@ and launches spacemacs when ready.
 
 Sick of having to modify my IDE or editor for programming depending on what
 machine I was on, I searched for a method to be able to recreate the same
-environment across all machines, virtual Machines were one option, but heavy and
+environment across all machines, virtual machines were one option, but heavy and
 resource intensive. Research into containerisation showed that it seemed a
-Docker container that could run on all machines that housed the emacs/spacemeacs 
-configuration that suited me was the answer, there were some initial hurdles,
+Docker container that could run on all machines, this container could house the emacs/spacemeacs 
+configuration that suited me, was the answer. There were some initial hurdles,
 such as getting a GUI on a container you can read about the whole process at the
-[project process docs](./docs/project-process.md) if you are interested.
+[project report docs](./docs/project-report.md) if you are interested.
 
 ## current submodule versions
 
@@ -92,7 +115,7 @@ vncpasswd
 Note it's not `password` this is the password for the vnc connection, it is also
 set to `initial` by default but you don't need the initial one for resetting it
 (because you're already logged in and an authorised user with the SSH
-Connection).
+connection).
 
 Then you should do the following to regenerate the SSH keys
 
@@ -111,7 +134,7 @@ exit
 Now you should exit the SSH connection one more time (if you copy pasted the
 above then it should already be done) so that we actually start using the new
 keys, when you try and reconnect using the above ssh command, it will give you
-the following error.
+an error similar to the following.
 
 ```log
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -142,10 +165,12 @@ the VNC server running on the computer.
 ```shell
 ssh -p 22000 matapihi@localhost -L 59000:localhost:5900
 ```
-Now go to your vnc viewer of choice, I'm currently using Real VNC but will
-likely switch to tigervncviewer soon because that is the client version of the
-vnc server which is installed in the container and there is a chance that it
-handles dynamic screen resizing to the client size, but I digress...
+Now go to your vnc viewer of choice, I'm currently using [Real
+VNC](https://www.realvnc.com/en/connect/download/viewer/)  but will
+likely switch to [tigervncviewer](https://tigervnc.org/) soon because that is
+the client version of the vnc server which is installed in the container and
+there is a chance that it handles dynamic screen resizing to the client size,
+but I digress...
 
 In your VNC viewer set up a connection to the port we're forwarding to the
 containers vnc port of 5900, in this example it's 59000 so:
@@ -154,8 +179,8 @@ containers vnc port of 5900, in this example it's 59000 so:
 
 is the host/ip you want to connect to.
 
-Now you are connected to `matapihi` the window into the Xserver so we want to
-set up the programs that I use, `matapihi` will prompt for some urls that point
+Now you are connected to matapihi the window into the Xserver so we want to
+set up the programs that I use, matapihi will prompt for some urls that point
 to scripts you want to run on start up, heres what I use, for the startup
 script, I paste into the prompts the following:
 
@@ -166,11 +191,11 @@ https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-bootstr
 then for the exit script
 
 ```shell
-https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kaianga-exit
+https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-exit
 ```
 
-Now `matapihi` will run through these scripts and install python, pip and git,
-then clone my `kainga-conf` repo and install `wakahiki` the multithreaded script
+Now matapihi will run through these scripts and install python, pip and git,
+then clone my kainga-conf repo and install wakahiki the multithreaded script
 loader also part of this collection here. Then it will load all the config as
 setout in the kainaga-conf. In the kainga-conf there will be one bit about 
 loading a key to GitHub under my profile which you will want to use `q` to skip. 
@@ -181,9 +206,12 @@ you're in.
 Like everything that's good it's best to start it with a restart, (in spacemacs
 the mode line won't render properly till we restart) so `ctrl` + `x`, `ctrl` + `c` to
 exit emacs which will start terminating matapihi (you might need to exit or alt
-tab out of the spare terminal to get to the exit prompt), follow the prompts to exit
-and then reconnect the VNC client, this will reload and this time when emacs starts
-then it should display correctly.
+tab out of the spare terminal to get to the exit prompt), follow the prompts to
+exit. You may even like to restart the docker conatiner, this will free up some
+memory for the host as it uses more memory to install than it needs to run, if
+you do this you will need to reconnect the SSH tunnel. Then reconnect the VNC
+client, this will reload and this time when emacs starts then it should display 
+correctly.
 
 You can navigate to a terminal using `alt` + `tab` or pull one up in emacs by
 using `spc` + `'` then check the output 
@@ -194,14 +222,14 @@ screen choice was incorrect and you can no longer see all of the screen to
 change it back your vnc viewer likely has a scaling option you can use to see
 the whole screen at an incorrect dpi while you play around with and get the
 correct size, you can also add resolutions to the xrandr output, see the xrandr
-docs for that here)
+docs for that [here](https://www.x.org/releases/X11R7.5/doc/man/man1/xrandr.1.html))
 
 Happy Hacking!
 
 ## Configure
 
 Above we walked you through how to get up and running with my config, but the
-idea is for `kainga` to be your home, not mine so lets walk through how to
+idea is for kainga to be your home, not mine so lets walk through how to
 configure it. In the interest of seperation of concerns the various aspects that
 make up this project have been seperated into their respective repos that you
 can read specific guidance on at their respective repos listed after each
@@ -209,7 +237,10 @@ heading if applicable.
 
 ### Matapihi
 
-For an in depth guide to `matapihi` see it's repo [here](https://github.com/sierra-alpha/matapihi)
+For an in depth guide to `matapihi` see it's repo
+[here](https://github.com/sierra-alpha/matapihi) it's also available to run
+directly from Docker Hub
+[here](https://hub.docker.com/repository/docker/sierraalpha/matapihi) 
 
 Is basically an SSH server that spins up a default VNC connection on Xdisplay :0
 so connection is on it's local host port of 5900 (long term goal is to spin up
@@ -220,11 +251,11 @@ to mount some of your host drives into the container to be able to work on them
 from within the container, this is what I do
 
 ```shell
-docker run -d -p <host port to use>:22 [--mount type=bind,source=<path/on/host>,target=<path/on/container> --name <container-name>] sierraalpha/matapihi-private:<current-version>
+docker run -d -p <host-port-to-use>:22 [--mount type=bind,source=<path/on/host>,target=<path/on/container> --name <container-name>] sierraalpha/matapihi-private:<current-version>
 ```
 
  - Everything inside the `[]` are optional
- - `<host port to use>` is any unused ephemeral port, I normally use 22000 as
+ - `<host-port-to-use>` is any unused ephemeral port, I normally use 22000 as
 SSH default is 22 so it's easy to remember
  - `<path/on/host>` is an existing directory on your host that you want the
 contaier to be able to access
@@ -237,11 +268,11 @@ of the `matapihi` image
 Now that is done the SSH Tunnel has some configurable options too
 
 ```shell
-ssh [-fNT] -p <host port to use> matapihi@<container-address> -L <host-port-to-fwd>:<container-address>:5900
+ssh [-fNT] -p <host-port-to-use> matapihi@<container-address> -L <host-port-to-fwd>:<container-address>:5900
 ```
 
  - `[]` optional values to allow SSH tunnel to go to the background
- - `<host port to use>` the same value as used above
+ - `<host-port-to-use>` the same value as used above
  - `<host-port-to-fwd>` The port on the host that will be forwarded to 5900 (the VNC port) 
    on matapihi, ususally I use 59000
  - `<container-address>` The address of the container, most likely `localhost`, you
@@ -249,8 +280,8 @@ can probably use a different address for a machine that isn't the host if the
 host is configured to accept incoming connections on the `<host port to use>`
 specified earlier although this hasn't been tested yet.
 
-Next `matapihi` will prompt you for some urls that point to scripts that you want
-to download and run, `matapihi` uses `xterm` for these terminals so pasting is
+Next matapihi will prompt you for some urls that point to scripts that you want
+to download and run, matapihi uses `xterm` for these terminals so pasting is
 with the middle mouse button or `shift` + `insert` (also to support my macbook
 air with no insert or middle mouse button you can `ctrl` + `shift` + `V` or
 right click to paste), which brings us too:
@@ -259,19 +290,21 @@ right click to paste), which brings us too:
 
 For an in depth guide to `kainga-conf` see it's repo [here](https://github.com/sierra-alpha/kainga-conf)
 
-The `kaianga-conf` repo contains all the configuration and scripts I want to run
-when `matapihi` loads, I use `wakahiki` to load all the config, this is
-specified in the `kaianga-bootstrap` file. But at this point you could load
+The kainga-conf repo contains all the configuration and scripts I want to run
+when matapihi loads, I use wakahiki to load all the config, this is
+specified in the `kainga-bootstrap` file. But at this point you could load
 whatever startup and exit scripts you want to run by similarly hosting them on
 an url that `wget` can access from within the container. Similarily you could keep the
-bootstrap and exit scripts but just change the `kaianga-conf` file to suit your
-needs, the next section on `wakahiki` details more about the kind of config 
+bootstrap and exit scripts but just change the kainga-conf file to suit your
+needs, the next section on wakahiki details more about the kind of config. 
 
 ### Wakahiki
 
-For an in depth guide to `wakahiki` see it's repo [here](https://github.com/sierra-alpha/wakahiki)
+For an in depth guide to `wakahiki` see it's repo
+[here](https://github.com/sierra-alpha/wakahiki) its also maintained on pip
+[here](https://pypi.org/project/wakahiki/) 
 
-`wakahiki` is a multithreaded script loader, it uses the following format to
+Wakahiki is a multithreaded script loader, it uses the following format to
 allow a subprocess shell to be run, it handles a priority arrangement and will
 execute in multithreaded fashion where possible.
 
@@ -292,7 +325,9 @@ execute in multithreaded fashion where possible.
    also used to to determine pre requisites, you can have multiple sections
    like this
  - `pre-reqs` (optional, default=None) the name of any script groups that should be run before this one,
-   optional, if excluded will not depend on any othr script groups
+   optional, if excluded will not depend on any other script groups before
+   running but doesn't mean it will be first. At least one group must have no
+   pre-req in order for the scripts to start.
  - `[[command-group.scripts]]` (required at least one) this is the sub group,
    allows you to specify order of script running for related subtasks, these are
    not run on multiple threads relative to other commands in the same subgroup
@@ -320,7 +355,8 @@ supplied scripts
 
 If you're super security conscious you'll wan't to inspect all the code, checkout
 each of the repositories for that, and you may even like to build the Docker
-container from from the Docker file, checkout `matapihi` and the
+container from from the Docker file, checkout the `matapihi` repo and
+specifically the
 `docker_compose_with_secrets.py` script which will read a config file and pass
 in the relavent passwords using files as arguments rather than paswords as args.
 
@@ -336,23 +372,45 @@ a cloud dev environment that you could use wherever you have internet.
 
 ## Features
 
-As `kainga` stands there are a few features, using Xvnc as the Xserver and the
-VNC server as provided by the package tigervnc-standalone-server in the debian
-repositories the emacs/spacemacs setup as
-mentioned above, an xterm terminal, but you could add a browser such as firefox
-to complete the environment, there is no window manager, but it uses `alttab`
-for switching between windows and `GNU Stow` to help keep track of dotfiles, I
-use `gitwatch` to keep track of changes and automatically push them to github
-for the kainga-conf repos and dotfiles repo, and supervisord to launch and keep
-gitwatch running. 
+As `kainga` stands there are a few features; 
+ - using Xvnc as the Xserver and the
+VNC server as provided by the package
+[tigervnc-standalone-server](https://manpages.debian.org/unstable/tigervnc-standalone-server/Xtigervnc.1.en.html)
+in the debian repositories 
+ - The [GNU
+ emacs](https://www.gnu.org/software/emacs/)/[spacemacs](https://www.spacemacs.org/)
+ setup as mentioned above, an [xterm](https://invisible-island.net/xterm/)
+ terminal, but you could add a browser such as firefox to complete the environment 
+ - There is no window manager, but it uses
+   [alttab](https://github.com/sagb/alttab) for switching between windows 
+ - [GNU Stow](https://www.gnu.org/software/stow/) to help keep track of dotfiles
+ - [gitwatch](https://github.com/gitwatch/gitwatch) to keep track of changes and
+   automatically push them to github for the kainga-conf repos and dotfiles repo 
+ - [supervisord](http://supervisord.org/) to launch and keep gitwatch running. 
+ - And a whole lot of hand made scripts to run through `matapihi` & `kainga-conf`
+
+## Known Bugs/improvements
+
+ - When opening a new Xwindow application it doesn't get focus unless you use
+   alt tab even though it's the window on top, the workaround for now is to use
+   alttab to get focus, (even clicking on the top window doesn't get keyboard
+   focus) There's probably some Xserver settings for matapihi or in alttab to
+   deal with this.
+ - I'd like to have some sort of SSH server listening for connections and then
+   launching new Xvnc instances with different display numbers depending on the
+   port connected to, this would allow a single instance to support multiple
+   connections to do different work simultaneously, but this may be overkill as
+   in the docker world you could just spin up another box and fwd a different
+   port to it's VNC port.
 
 ## More Info
 
 If this has interested you and you want to know more you can see the [project
-report](./docs/project-report.md) which details the journey and why decisions were made for various aspects
-of the project.
+report](./docs/project-report.md) which details the journey and why decisions
+were made for various aspects of the project. 
 
 ## Contributing
 
-Checkout the sponsor section of my github profile or raise an issue or submit a
-PR, thanks for reading and I hope you enjoy!
+Checkout the [sponsor](https://github.com/sponsors/sierra-alpha) section of my
+github profile or raise an issue or submit a PR, thanks for reading and I hope
+you enjoy! 

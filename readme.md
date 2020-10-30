@@ -2,7 +2,7 @@
 ---
 # Kainga
 
-A `kainga` (home/\~) away from `kaianga` (home/\~)
+A `kainga` (home/~) away from `kaianga` (home/~)
 
 ## TL;DR (Too Long; Didn't Read)
 
@@ -46,7 +46,7 @@ Because I needed to do something for a Uni project...
 
 But really this:
 
-The inspiration came because I have multiple OS's that I develop on Windows,
+The inspiration came because I have multiple OS's that I develop on, Windows,
 Linux and MacOS, both for work and home, I used to use VS Code but my remote
 connection for work was over a Citrix Session and some how VS Code caused the
 Citrx session to crash so I had to get used to different tools. I tried Eclipse
@@ -55,8 +55,8 @@ hated it, and using it for work didn't change my feelings for it. I tried Vim
 because some of my uni friends had always fanboyed about it but I struggled to
 get the packages downloaded through the protected work network (I now realise
 that was probebly more related to proxy settings than Vim, but the ship has
-sailed). One of the old beards at work (Disclaimer, they don't really have a
-beard, I'm more reverring to there unix wizardry level) uses emacs and kept
+sailed). One of the old beards at work (disclaimer; they don't really have a
+beard, I'm more referring to their unix wizardry level) uses emacs and kept
 suggesting I use that, I gave it a go and was scared away, as most people are,
 then in time I got used to it, then I fell to the _evil_ side combining Vim
 keybindings with emacs power, and then it was time to delve into the beautiful
@@ -77,11 +77,12 @@ was taking on cloud and IoT. It seemed a Docker container that could run on all
 machines that housed the emacs/spacemeacs configuration that suited me was the
 answer, there were some initial hurdles, such as getting a GUI on a container
 you can read about the whole process at the [project
-process docs](./docs/project-process) if you are interested.
+process docs](./docs/project-process.md) if you are interested.
 
 ## current submodule versions
 
-
+matapihi 0.1.1
+wakahiki 0.1.4
 
 ## Quick Start/Install
 
@@ -93,11 +94,11 @@ Me: "Sure just do this:"
 You can get up and runnning using my config and you'll be able to use the system
 to get a feel for how you could customise it and use it as your own.
 
-First you'll need to install Docker, once you've done that you can run the
-container by using the command:
+First you'll need to install [Docker](https://docs.docker.com/get-docker/),
+once you've done that you can run the container by using the command:
 
 ```shell
-docker run -p 22000 --name matapihi sierraalpha/matapihi:0.1.0
+docker run -p 22000 --name matapihi sierraalpha/matapihi:0.1.1
 ```
 
 Then we should do some security things, open up a terminal of your choice, ssh
@@ -120,7 +121,7 @@ set to `initial` by default but you don't need the initial one for resetting it
 (because you're already logged in and an authorised user with the SSH
 Connection).
 
-Then you should do the following to regenerate the SSH keys (taken from here: )
+Then you should do the following to regenerate the SSH keys
 
 ** Note if you get disconnected during these commands it's likely to be
    impossible to reconnect through SSH but you can still use docker to get a
@@ -128,18 +129,37 @@ Then you should do the following to regenerate the SSH keys (taken from here: )
 
 ```shell
 sudo su
-/bin/rm ...
+/bin/rm -v /etc/ssh/ssh_host_*
 dpkg-reconfigure openssh-server
-service ssh restart
+service ssh restar
+exit
+exit
 ```
-Now you should exit the SSH connection one more time so that we actually start
-using the new keys, when you try and reconnect using the above ssh command, it will give you the
-following error.
+Now you should exit the SSH connection one more time (if you copy pasted the
+above then it should already be done) so that we actually start using the new
+keys, when you try and reconnect using the above ssh command, it will give you
+the following error.
 
-`Insert error here!!!!!!!!!!!!!!!!!!!`
+```log
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+SHA256:Somereallylongandweirdlookingsha256keykdkshsije.
+Please contact your system administrator.
+Add correct host key in /home/<user>/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /home/<user>/.ssh/known_hosts:X
+  remove with:
+  ssh-keygen -f "/home/<user>/.ssh/known_hosts" -R "[localhost]:22000"
+ECDSA host key for [localhost]:22000 has changed and you have requested strict checking.
+Host key verification failed.
+```
 
 Don't worry you're the one doing something nasty, just follow it's instructions
-on your local (the non container) machine about removeing the old keys form the
+on your local (the non container) machine about removing the old keys from the
 known host and follow on below and all should be fine.
 
 This time when we reconnect we want to use the port
@@ -149,7 +169,6 @@ the VNC server running on the computer.
 ```shell
 ssh -p 22000 matapihi@localhost -L 59000:localhost:5900
 ```
-
 Now go to your vnc viewer of choice, I'm currently using Real VNC but will
 likely switch to tigervncviewer soon because that is the client version of the
 vnc server which is installed in the container and there is a chance that it
@@ -165,31 +184,33 @@ is the host/ip you want to connect to.
 Now you are connected to `matapihi` the window into the Xserver so we want to
 set up the programs that I use, `matapihi` will prompt for some urls that point
 to scripts you want to run on start up, heres what I use, for the startup
-script:
+script, I paste into the prompts the following:
 
 ```shell
-url for start up script
+https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-bootstrap
 ```
 
 then for the exit script
 
 ```shell
-url for exit script
+https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kaianga-exit
 ```
 
 Now `matapihi` will run through these scripts and install python, pip and git,
-clone my `kainga-conf` repo and install `wakahiki` the multithreaded script
+then clone my `kainga-conf` repo and install `wakahiki` the multithreaded script
 loader also part of this collection here. Then it will load all the config as
-setout in the kainaga-conf in here there will be one bit about loading a key to
-GH under my profile which you will want to use `q` to skip. After all that's
+setout in the kainaga-conf. In the kainga-conf there will be one bit about 
+loading a key to GitHub under my profile which you will want to use `q` to skip. 
+After all that is 
 loaded eventually it will start the emacs server and then launch emacs and
 you're in.
 
-Like everything that's good it's best to start it with a restart, (in spacemacs 
-the mode line won't render properly till we restart) so `ctrl` + `x`, `ctrl` + `c`
-to exit emacs which will start `matapihi` to terminate, follow the prompts to exit 
-and then reconnect to the vpn, this will reload and this time when emacs starts 
-then it should display correctly.  
+Like everything that's good it's best to start it with a restart, (in spacemacs
+the mode line won't render properly till we restart) so `ctrl` + `x``, `ctrl` + `c` to
+exit emacs which will start terminating matapihi (you might need to exit or alt
+tab out of the spare terminal to get to the exit prompt), follow the prompts to exit
+and then reconnect the VNC client, this will reload and this time when emacs starts
+then it should display correctly.
 
 You can navigate to a terminal using `alt` + `tab` or pull one up in emacs by
 using `spc` + `'` then check the output 
@@ -229,16 +250,16 @@ from within the container, this is what I do
 docker run -d -p <host port to use>:22 [--mount type=bind,source=<path/on/host>,target=<path/on/container> --name <container-name>] sierraalpha/matapihi-private:<current-version>
 ```
 
-Everything inside the `[]` are optional
-`<host port to use>` is any unused ephemeral port, I normally use 22000 as SSH
-default is 22 so it's easy to remember
-`<path/on/host>` is an existing directory on your host that you want the
+   Everything inside the `[]` are optional
+   `<host port to use>` is any unused ephemeral port, I normally use 22000 as
+   SSH default is 22 so it's easy to remember
+   `<path/on/host>` is an existing directory on your host that you want the
 contaier to be able to access
-`<path/on/container>` is the path inside the container where you want to access
+   `<path/on/container>` is the path inside the container where you want to access
 the host directory above
-`<container-name>` A name to easily identify this particular container instance
+   `<container-name>` A name to easily identify this particular container instance
 of the `matapihi` image
-`<current-version>` The current version (0.1.0) of matapihi image to use
+   `<current-version>` The current version (0.1.0) of matapihi image to use
 
 Now that is done the SSH Tunnel has some configurable options too
 
@@ -246,16 +267,18 @@ Now that is done the SSH Tunnel has some configurable options too
 ssh [-fNT] -p <host port to use> matapihi@<container-address> -L :<container-address>:5900
 ```
 
-`[]` optional values to allow SSH tunnel to go to the background
-`<host port to use>` the same value as used above
-`<container-address>` The address of the container, most likely `localhost`, you
+   `[]` optional values to allow SSH tunnel to go to the background
+   `<host port to use>` the same value as used above
+   `<container-address>` The address of the container, most likely `localhost`, you
 can probably use a different address for a machine that isn't the host if the
 host is configured to accept incoming connections on the `<host port to use>`
 specified earlier although this hasn't been tested yet. 
 
 Next `matapihi` will prompt you for some urls that point to scripts that you want
 to download and run, `matapihi` uses `xterm` for these terminals so pasting is
-with the middle mouse button or `shift` + `insert`, which brings us too:
+with the middle mouse button or `shift` + `insert` (also to support my macbook
+air with no insert or middle mouse button you can `ctrl` + `shift` + `V` or
+right click to paste), which brings us too:
 
 ### Kainga-Conf
 
@@ -265,7 +288,7 @@ The `kaianga-conf` repo contains all the configuration and scripts I want to run
 when `matapihi` loads, I use `wakahiki` to load all the config, this is
 specified in the `kaianga-bootstrap` file. But at this point you could load
 whatever startup and exit scripts you want to run by similarly hosting them on
-an url that `wget` from the container can access. Similarily you could keep the
+an url that `wget` can access from within the container. Similarily you could keep the
 bootstrap and exit scripts but just change the `kaianga-conf` file to suit your
 needs, the next section on `wakahiki` details more about the kind of config 
 
@@ -278,8 +301,45 @@ allow a subprocess shell to be run, it handles a priority arrangement and will
 execute in multithreaded fashion where possible.
 
 ```toml
-Add layouts here 
+[command-group]
+    pre-reqs = ["previous-command-group.scripts"]
+    [[command-group.scripts]]
+        no_wait = true
+        prompt = true
+        priority = 0
+        root = true
+        script = ["first", "group", "command"]
+    [[command-group.scripts]]
+        script = ["second", "group", "command"]
 ```
+
+   `[command-group]` (required) is the given name to the group of scripts to run, it is
+   also used to to determine pre requisites, you can have multiple sections
+   like this
+   `pre-reqs` (optional, default=None) the name of any script groups that should be run before this one,
+   optional, if excluded will not depend on any othr script groups
+   `[[command-group.scripts]]` (required at least one) this is the sub group,
+   allows you to specify order of script running for related subtasks, these are
+   not runn on multiple threads relative to other commands in the same subgroup
+   `no_wait` (optional, default=false) wakahiki will start the command in the
+   background, usefull for launching daemon processes (will ignore this if set
+   to run with prompt=true)
+   `prompt` (optional default=false) will run connected to the stdout/stderr and
+   stdin so users can interact with the process as need be, processes that prompt
+   users may cause the program to stop if this is not set to true.
+   `priority` (optional, default=0)will run the subgroups in this order,
+   duplicate values are run in an undefined order amongst themselves but still
+   in order relative to other values. 
+   `root` (optional default=false) will run a sudo echo command before running
+   the supplied command, the supplied commands still need to use sudo as
+   required but this is to try and prompt once for many scripts that may require
+   it.
+   `script` (required) the scripts you want to run in a format that a python
+   `subprocess.run()` would expect to recieve, for example `["bash", "-c",
+   "echo", "Hello World"]`
+
+The second group is an example of the minimum required for wakahiki to run the
+supplied scripts 
 
 ### Security
 
@@ -288,7 +348,6 @@ each of the repositories for that, and you may even like to build the Docker
 container from from the Docker file, checkout `matapihi` and the
 `docker_compose_with_secrets.py` script which will read a config file and pass
 in the relavent passwords using files as arguments rather than paswords as args.
-You may also wish to 
 
 
 ## Use Cases
@@ -297,11 +356,14 @@ Okay that's all great and good you say, but what would I use it for? Well as
 already mentioned to have a similar environment across machines of differeing
 OS's, perhaps you could set up a dev server that you can access from anywhere in
 the world or even have a cloud server running that you remote into to do all
-your dev work on, right there next to you're deployed web service...
+your dev work on, right there next to you're deployed web service, imagine that
+a cloud dev environment that you could use wherever you have internet.
 
 ## Features
 
-As `kainga` stands there are a few features, the emacs/spacemacs setup as
+As `kainga` stands there are a few features, using Xvnc as the Xserver and the
+VNC server as provided by the package tigervnc-standalone-server in the debian
+repositories the emacs/spacemacs setup as
 mentioned above, an xterm terminal, but you could add a browser such as firefox
 to complete the environment, there is no window manager, but it uses `alttab`
 for switching between windows and `GNU Stow` to help keep track of dotfiles, I
@@ -311,8 +373,8 @@ gitwatch running.
 
 ## More Info
 
-If this has interested you and you want to know more you can see the project
-report which details the journey and why decisions were made for various aspects
+If this has interested you and you want to know more you can see the [project
+report](./docs/project-report.md) which details the journey and why decisions were made for various aspects
 of the project.
 
 ## Contributing

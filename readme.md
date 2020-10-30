@@ -2,7 +2,7 @@
 ---
 # Kainga
 
-A `kainga` (home/~) away from `kaianga` (home/~)
+A `kainga` (home/\~) away from `kaianga` (home/\~)
 
 ## TL;DR (Too Long; Didn't Read)
 
@@ -81,8 +81,8 @@ process docs](./docs/project-process.md) if you are interested.
 
 ## current submodule versions
 
-matapihi 0.1.1
-wakahiki 0.1.4
+matapihi 0.1.1  
+wakahiki 0.1.4  
 
 ## Quick Start/Install
 
@@ -206,7 +206,7 @@ loaded eventually it will start the emacs server and then launch emacs and
 you're in.
 
 Like everything that's good it's best to start it with a restart, (in spacemacs
-the mode line won't render properly till we restart) so `ctrl` + `x``, `ctrl` + `c` to
+the mode line won't render properly till we restart) so `ctrl` + `x`, `ctrl` + `c` to
 exit emacs which will start terminating matapihi (you might need to exit or alt
 tab out of the spare terminal to get to the exit prompt), follow the prompts to exit
 and then reconnect the VNC client, this will reload and this time when emacs starts
@@ -250,25 +250,27 @@ from within the container, this is what I do
 docker run -d -p <host port to use>:22 [--mount type=bind,source=<path/on/host>,target=<path/on/container> --name <container-name>] sierraalpha/matapihi-private:<current-version>
 ```
 
-   Everything inside the `[]` are optional
+   Everything inside the `[]` are optional  
    `<host port to use>` is any unused ephemeral port, I normally use 22000 as
-   SSH default is 22 so it's easy to remember
+SSH default is 22 so it's easy to remember  
    `<path/on/host>` is an existing directory on your host that you want the
-contaier to be able to access
+contaier to be able to access  
    `<path/on/container>` is the path inside the container where you want to access
-the host directory above
+the host directory above  
    `<container-name>` A name to easily identify this particular container instance
-of the `matapihi` image
-   `<current-version>` The current version (0.1.0) of matapihi image to use
+of the `matapihi` image  
+   `<current-version>` The current version (0.1.0) of matapihi image to use  
 
 Now that is done the SSH Tunnel has some configurable options too
 
 ```shell
-ssh [-fNT] -p <host port to use> matapihi@<container-address> -L :<container-address>:5900
+ssh [-fNT] -p <host port to use> matapihi@<container-address> -L <host-port-to-fwd>:<container-address>:5900
 ```
 
-   `[]` optional values to allow SSH tunnel to go to the background
-   `<host port to use>` the same value as used above
+   `[]` optional values to allow SSH tunnel to go to the background  
+   `<host port to use>` the same value as used above  
+   `<host-port-to-fwd>` The port on the host that will be forwarded to 5900 (the VNC port) 
+   on matapihi, ususally I use 59000
    `<container-address>` The address of the container, most likely `localhost`, you
 can probably use a different address for a machine that isn't the host if the
 host is configured to accept incoming connections on the `<host port to use>`
@@ -315,28 +317,28 @@ execute in multithreaded fashion where possible.
 
    `[command-group]` (required) is the given name to the group of scripts to run, it is
    also used to to determine pre requisites, you can have multiple sections
-   like this
+   like this  
    `pre-reqs` (optional, default=None) the name of any script groups that should be run before this one,
-   optional, if excluded will not depend on any othr script groups
+   optional, if excluded will not depend on any othr script groups  
    `[[command-group.scripts]]` (required at least one) this is the sub group,
    allows you to specify order of script running for related subtasks, these are
-   not runn on multiple threads relative to other commands in the same subgroup
+   not run on multiple threads relative to other commands in the same subgroup  
    `no_wait` (optional, default=false) wakahiki will start the command in the
    background, usefull for launching daemon processes (will ignore this if set
-   to run with prompt=true)
+   to run with prompt=true)  
    `prompt` (optional default=false) will run connected to the stdout/stderr and
    stdin so users can interact with the process as need be, processes that prompt
-   users may cause the program to stop if this is not set to true.
+   users may cause the program to stop if this is not set to true.  
    `priority` (optional, default=0)will run the subgroups in this order,
    duplicate values are run in an undefined order amongst themselves but still
-   in order relative to other values. 
+   in order relative to other values.   
    `root` (optional default=false) will run a sudo echo command before running
    the supplied command, the supplied commands still need to use sudo as
    required but this is to try and prompt once for many scripts that may require
-   it.
+   it.  
    `script` (required) the scripts you want to run in a format that a python
    `subprocess.run()` would expect to recieve, for example `["bash", "-c",
-   "echo", "Hello World"]`
+   "echo", "Hello World"]`  
 
 The second group is an example of the minimum required for wakahiki to run the
 supplied scripts 

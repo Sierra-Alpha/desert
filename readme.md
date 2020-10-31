@@ -202,16 +202,42 @@ containers vnc port of 5900, in this example it's 59000 so:
 
 is the host/ip you want to connect to.
 
-Now you are connected to matapihi the window into the Xserver so we want to
-set up the programs that I use, matapihi will prompt for some urls that point
-to scripts you want to run on start up, heres what I use, for the startup
-script, I paste into the prompts the following:
+You'll be greeted with an encryption warning, we have encryption to authenticate
+the VNC viewer to server connection but not for the session, but thats why we
+tunnel over the SSH connection, it encrypts the traffic for us so if you see a
+warning like this you can safely click continue (don't show again if you like):
+
+![image](./docs/images/vnc-encryption-warning.png)
+
+In the password prompt use the password that you used for the `vncpasswd` step
+previously
+
+Now you are connected to matapihi the window into the Xserver first if you are
+using Real VNC then set the picture quality to high to get the screen to look
+good:
+
+![image](./docs/images/good-picture-quality.png)
+
+So we want to set up the programs that I use, matapihi will prompt for some urls
+that point to scripts you want to run on start up, the prompt will look like
+this (the highlight is what I've pasted in):
+
+![image](./docs/images/paste-start-url.png)
+
+heres what I use, for the startup script, I paste into the prompt the following:
 
 ```shell
 https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-bootstrap
 ```
 
-then for the exit script
+You'll then be asked to review the script to ensure it's what you expected (to
+make sure there is nothing nasty going on) that's the top half of this screen
+shot, followed by the prompt fo rthe exit script (again the url that I've pasted
+in is highlighted)
+
+![image](./docs/images/paste-exit-url.png)
+
+then for the exit script I paste in the following (shown in the highlight above)
 
 ```shell
 https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-exit
@@ -220,11 +246,15 @@ https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-exit
 Now matapihi will run through these scripts and install python, pip and git,
 then clone my kainga-conf repo and install wakahiki the multithreaded script
 loader also part of this collection here. Then it will load all the config as
-setout in the kainaga-conf. In the kainga-conf there will be one bit about 
-loading a key to GitHub under my profile which you will want to use `q` to skip. 
-After all that is 
-loaded eventually it will start the emacs server and then launch emacs and
-you're in.
+setout in the kainaga-conf. 
+
+In the kainga-conf there will be one bit about loading a key to GitHub under my
+profile which you will want to use `q` to skip, it will look like this. 
+
+![image](./docs/images/ssh-key-to-gh.png)
+
+After all that is loaded eventually it will start the emacs server and then
+launch emacs and you're in.
 
 Like everything that's good it's best to start it with a restart, (in spacemacs
 the mode line won't render properly till we restart) so `ctrl` + `x`, `ctrl` + `c` to

@@ -102,8 +102,11 @@ First you'll need to install [Docker](https://docs.docker.com/get-docker/),
 once you've done that you can run the container by using the command:
 
 ```shell
-docker run -p 22000 --name matapihi sierraalpha/matapihi:0.1.1
+docker run -d -p 22000:22 --name matapihi sierraalpha/matapihi:0.1.2
 ```
+
+The -d runs the container in the background and the -p specifies the host port we
+want to pass through to the containers SSH port.
 
 Then we should do some security things, open up a terminal of your choice, ssh
 into the container with the following:

@@ -140,3 +140,127 @@ build instructions to Docker to be able to build the same container every time.
     
    **Solution**  
    And some more stuff here 
+
+
+___
+
+matapihi todos here:
+
+
+   [*] add git keys to GH on run
+   [ ] Change https pull files to ssh
+   [ ] git add . git commit -m "some message on save of .files" git push file 
+       watcher program (periodically poll for repo changes)
+   [ ] Make additions to bash RC in another file and touch to end rather than ovewiritng it
+   [ ] inception pull in DevSetup repo to be able to tweak and push locally
+   [ ] add user to dockerfile
+   [ ] Do security of vnc and perhaps no vnc
+   [ ] setup read in 
+   [ ] Do everything else I want with it automated to push to the repo so I make my 
+       environment how I want and it keeps it updated online
+   [ ] Spawning new windows per GH branch
+
+
+Kainga Readme
+
+TLDR
+
+desription - continued
+
+quick start
+
+intstall
+
+configure
+
+use cases
+
+features
+
+more info
+
+#################
+
+Project report
+
+Development Process
+
+Seperation of concerns
+
+Security considerations
+
+limitations, further improvements
+
+
+
+#################
+
+Matapihi Readme
+
+TLDR
+
+desription
+
+quick start
+
+intstall
+
+configure
+
+use cases
+
+more info
+
+#################
+
+Wakahiki Readme
+
+TLDR
+
+desription
+
+quick start
+
+intstall
+
+configure
+
+use cases
+
+more info
+
+#################
+
+Kainga Readme
+
+TLDR
+
+desription
+
+quick start
+
+intstall
+
+configure
+
+use cases
+
+more info
+
+#################
+
+Dotfiles Readme
+
+TLDR
+
+desription
+
+quick start
+
+intstall
+
+configure
+
+use cases
+
+more info

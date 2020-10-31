@@ -66,6 +66,7 @@ and launches spacemacs when ready.
 
 ### Screenshots
 
+![image](./docs/images/kainga-screenshots)
 
 ### Why?
 

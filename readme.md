@@ -99,7 +99,9 @@ You can get up and runnning using my config and you'll be able to use the system
 to get a feel for how you could customise it and use it as your own.
 
 First you'll need to install [Docker](https://docs.docker.com/get-docker/),
-once you've done that you can run the container by using the command:
+once you've done that you can run the container by using the command (note if
+you want to easily access your host files see the [matapihi configuration
+section](#matapihi)): 
 
 ```shell
 docker run -d -p 22000:22 --name matapihi sierraalpha/matapihi:0.1.2

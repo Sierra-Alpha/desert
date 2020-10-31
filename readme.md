@@ -232,7 +232,7 @@ https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-bootstr
 
 You'll then be asked to review the script to ensure it's what you expected (to
 make sure there is nothing nasty going on) that's the top half of this screen
-shot, followed by the prompt fo rthe exit script (again the url that I've pasted
+shot, followed by the prompt for the exit script (again the url that I've pasted
 in is highlighted)
 
 ![image](./docs/images/paste-exit-url.png)

@@ -119,7 +119,10 @@ ssh -p 22000 matapihi@localhost
 Follow the prompts using `initial` as the first password to enter the system, it
 will ask you to enter the current password `initial` again and then select a new
 password, it will then log out of the ssh connection, connect again with the
-same command and then do the following:
+same command.
+
+Next we'll change the VNC servers password, this will be used when the client
+VNC viewer connects to the Xvnc server (through the SSH tunnel):
 
 ```shell
 vncpasswd
@@ -140,7 +143,7 @@ Then you should do the following to regenerate the SSH keys
 sudo su
 /bin/rm -v /etc/ssh/ssh_host_*
 dpkg-reconfigure openssh-server
-service ssh restar
+service ssh restart
 exit
 exit
 ```

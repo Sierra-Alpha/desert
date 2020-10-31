@@ -149,8 +149,13 @@ exit
 ```
 Now you should exit the SSH connection one more time (if you copy pasted the
 above then it should already be done) so that we actually start using the new
-keys, when you try and reconnect using the above ssh command, it will give you
-an error similar to the following.
+keys, when you try and reconnect using the above same ssh command:
+
+
+```shell
+ssh -p 22000 matapihi@localhost
+```
+It will give you an error similar to the following.
 
 ```log
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -437,3 +442,5 @@ everything is GPL3 anyway)
 Checkout the [sponsor](https://github.com/sponsors/sierra-alpha) section of my
 github profile or raise an issue or submit a PR, thanks for reading and I hope
 you enjoy! 
+
+Massive thank you to @belkinJr for help with the testing and being a gun

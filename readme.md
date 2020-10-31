@@ -27,8 +27,9 @@ with a preferred setup.
         - [Security](#security)
     - [Use Cases](#use-cases)
     - [Features](#features)
-    - [Known Bugs](#known-bugs)
+    - [Known Bugs/improvements](#known-bugsimprovements)
     - [More Info](#more-info)
+    - [Licence](#licence)
     - [Contributing](#contributing)
 
 <!-- markdown-toc end -->
@@ -411,6 +412,13 @@ in the debian repositories
 If this has interested you and you want to know more you can see the [project
 report](./docs/project-report.md) which details the journey and why decisions
 were made for various aspects of the project. 
+
+## Licence
+
+It is intended that as much as possible is released under GPL3, see licenses.md
+for more info, this does not overide any underlying works that have different
+licences their original licences shall still apply to their works (But I think
+everything is GPL3 anyway)
 
 ## Contributing
 

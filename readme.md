@@ -149,7 +149,7 @@ exit
 ```
 Now you should exit the SSH connection one more time (if you copy pasted the
 above then it should already be done) so that we actually start using the new
-keys, when you try and reconnect using the above same ssh command:
+keys, when you try and reconnect using the same ssh command:
 
 
 ```shell
@@ -443,4 +443,5 @@ Checkout the [sponsor](https://github.com/sponsors/sierra-alpha) section of my
 github profile or raise an issue or submit a PR, thanks for reading and I hope
 you enjoy! 
 
-Massive thank you to @belkinJr for help with the testing and being a gun
+Massive thank you to [@BelkinJr](https://github.com/BelkinJr) for help with the
+testing and documentation readability.

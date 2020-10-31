@@ -67,6 +67,10 @@ and launches spacemacs when ready.
 ### Screenshots
 
 ![image](./docs/images/kainga-screenshot.png)
+Left screen this repo on GH, the ssh tunnel in windows bash, the Vnc Viewer main screen
+docker dash board showing the stats for the container.
+Right screen the container running spacemacs viewed through the vnc viewer.
+
 
 ### Why?
 

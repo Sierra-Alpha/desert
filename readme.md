@@ -85,8 +85,10 @@ such as getting a GUI on a container you can read about the whole process at the
 
 ## current submodule versions
 
-matapihi 0.1.1  
-wakahiki 0.1.4  
+[dotfiles 0.1.0](https://github.com/sierra-alpha/dotfiles/tree/0.1.0)__
+[kainga-conf 0.1.0](https://github.com/sierra-alpha/kainga-conf/tree/0.1.0)__
+[matapihi 0.1.2](https://github.com/sierra-alpha/matapihi/tree/0.1.2)  
+[wakahiki 0.1.5](https://github.com/sierra-alpha/wakahiki/tree/0.1.5)  
 
 ## Quick Start/Install
 

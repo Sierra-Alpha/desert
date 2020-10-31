@@ -3,11 +3,6 @@
 
 A `kainga` (home/`~`) away from `kainga` (home/`~`)
 
-## TL;DR (Too Long; Didn't Read)
-
-A containerised Xserver with VNC over SSH tunnels. Launching a Spacemacs editor
-with a preferred setup.
-
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
@@ -31,6 +26,12 @@ with a preferred setup.
     - [Contributing](#contributing)
 
 <!-- markdown-toc end -->
+
+## TL;DR (Too Long; Didn't Read)
+
+A containerised Xserver with VNC over SSH tunnels. Launching a Spacemacs editor
+with a preferred setup.
+
 
 ## Description
 

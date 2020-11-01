@@ -45,12 +45,7 @@ To build any software you need the right tools, and you need flexibility, the
 idea that you can sit at any terminal and start coding in a way that is familiar
 to you gives way to this project. 
 
-###### Combine the below
-
-----------------------------------------
-
 ## Inspiration
-
 
 The inspiration came because I have multiple OS's that I develop on, Windows,
 Linux and MacOS, both for work and home, I used to use VS Code but my remote
@@ -212,7 +207,6 @@ installed on top of.
     the base images don't contain an X server for rendering GUI applications and
     the console connections are all text based. While emacs and Spacemacs both
     can run in a shell the user experience these days is much nicer in a GUI.  
-    
     **Solution**  
     The solution is to install an Xserver onto the Docker image and a virtual
     network computing (VNC) server to be able to remote desktop in and interact
@@ -250,7 +244,6 @@ installed on top of.
    One of the ideal user experiences would be to have the Xwindow screen resolution
    automatically set to the size of the VNC viewer used to connect to the VNC
    server.  
- 
     **Solution**  
     One of the advantages of switching to Xtigervnc is that it allows fo rthis
     very thing to happen, but currently only for tigervnc clients but it
@@ -269,7 +262,6 @@ installed on top of.
     security risk and slower than their VNC (Over SSH counterparts) REFERENCE
     NEEDED https://computing.cs.cmu.edu/security/security-xserver
     https://www.nas.nasa.gov/hecc/support/kb/index.php?View=entry&EntryID=257&EntryTitle=vnc-a-faster-alternative-to-x11&mobile=0  
-    
    **Solution**  
    The solution for part one was to use Docker Build Secrets
    https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information
@@ -295,7 +287,6 @@ installed on top of.
  - **Build Automation**  
     Docker is wonderful but you can end up needing to pass in a lot of commands
     to build the images securely.  
-
     **Solution**  
     There is docker compose but as mentioned above 
     there was a need for developing my own build script to incorporate Docker
@@ -307,7 +298,6 @@ installed on top of.
    Mac Laptops and keyboards/mice dont have some common keys or buttons that
     Linux applications expect, namely the middle mouse button or the insert
     button, both of these are expected to be able to paste into an xterm window.  
-    
    **Solution**  
    After scouring the [xterm
    manual](https://invisible-island.net/xterm/manpage/xterm.html) and
@@ -316,7 +306,7 @@ installed on top of.
    shift + v paste to support Mac hardware.
 
 #### Limitations and Future Considerations
- - docker console at root  
+ - **docker console at root**  
    Currently if you log into the container through the docker host you will be
    granted acess as root without needing to enter a password, this is  a side
    effect needing to run an SSH server as part of the startup command, the SSH
@@ -326,13 +316,13 @@ installed on top of.
    of your computer than this container. I would need to look at configuring
    this a different way so that we could launch the SSH server earlier in the
    docker file.
- - No vnc  
+ - **No vnc**  
    [No Vnc](https://novnc.com/info.html) is a client for VNC connections that
    can run in a browser, this could be a way to allow even easier access to the
    VNC server, it could be an interesting develoment if the container also
    served the VNC client software over the internet to allow connection through
    the browser. 
- - Multiple Clients  
+ - **Multiple Clients**  
    I can see a use case for wanting to connect to the Container again, to a
    different Xserver display, for example if you had one project open in one VNC
    Client and you wanrted to seperate it totally from your work on another
@@ -341,7 +331,7 @@ installed on top of.
    lower priority improvement as the nature of containers is if you want to
    duplicate the functionality you can just spin up another container and access
    it independently.
- - podman systemd  
+ - **podman systemd**  
    One of the limitaitons of Docker Containers is that the images don't support
    systemd very well, the idea is that each container should be running an
    individual service, an ethos we are clearly breaking in this implementation,
@@ -362,17 +352,17 @@ installed on top of.
    members of so in theory I should be ble to define and build my container from
    a Podman image on a linux host and then run it within a docker host
    environment on windows or Mac.
- - SSH script to rename VNC passwd  
+ - **SSH script to rename VNC passwd**  
    At the moment it's quite a manual process for the user to SSH into the container to set a new
    password for VNC and to regenerate new SSH keys for the matapihi container,
    it would be good to to capture this into a script that the user could run
    more easily.
- - Certs SSH Keys
+ - **Certs SSH Keys**  
    It would be nice to also add instructions (or a script) for adding the public
    SSH key of the
    physical machine to the container and to turn off password authentication so
    that only known hosts could connect to the containers
- - Machine Names
+ - **Machine Names**  
    Docker images contain a randome unique string as the hostname, it could be
    nice to generate this as a user set name with a unique suffix if required.
 
@@ -438,7 +428,6 @@ go.
    One of the things for installing new Linux systems is the time it takes to
    install all the packages, I experimented with running these in parralell
    unsuccessfully.  
-    
    **Solution**  
    The way the package manager locks resources is not easily polled, the lock
    file always exists so it's not enough to simply check if the file exists or
@@ -457,7 +446,6 @@ go.
    connected to a TTY it will suspend the program, this allows the user to
    manually set the suspended program to run in the foreground in order to
    interact with it.  
-    
    **Solution**  
    The solution here was to determine which subprocessess needed IO even if only
    on program errors and to set them with prompt=true in the config so that they
@@ -468,7 +456,6 @@ go.
    the repos at runtime so that I could develop on them immediatly when
    launching into a container during the dev process. I would be prompted for a
    username and password each time for each private repo
-    
    **Solution**  
    To be able to pull the repos without being prompted for a password each time
    I set up a script that would generate a SSH key for me and then upload that
@@ -484,7 +471,6 @@ go.
    so after the dotfiles are stowed you need an SSH key uploaded to github in
    order to be able to pull or push so this causes futher failures in the rest
    of the github clones/pulls specified in the config if you don't upload a key.  
-    
    **Solution**  
    There is two fixes here, prompt for user on GH key upload so people can
    upload their own key to their own account if they have set up a github access
@@ -494,13 +480,11 @@ go.
    but they should fork the dotfiles and kainga-conf repos and use it as their own if they want to beable
    to do that.
    
-
  - **Idempotent Scripts**  
    Re running matapihi initialisation would cause errors for some of the scripts
    causing wakahiki to prompt the user if they want to abort or continue. The
    rerun would happen anytime you exited the matapihi program and then
    reconnected the VNC client.
-    
    **Solution**  
    The solution was to go through and inspect all the scripts that wakahiki
    called as specified by the kainga-conf files and modify all the scripts to
@@ -509,7 +493,7 @@ go.
    start the service.
 
 #### Limitations and Future Considerations
- - Git Submodules  
+ - **Git Submodules**  
    I looked into using Git to house the scripts located in kainaga-conf/bin
    because some of those scripts are not only useful at install time but also at
    run time, I thought submodules would be a great way to have the bin scripts
@@ -519,7 +503,7 @@ go.
    twice and the scripts always being exactly the same in one place and the
    other. In hindsight I should probably call GNU Stow on the bin files with
    different parameters.
- - AltTab bug  
+ - **AltTab bug**  
    There is a bug in th euse of Alttab in relation to this kainga package, I
    don't think it's a bug with Alttab itself but just in how I use it in this
    setup, the bug is that when knew Xwindows are launched even though they maybe
@@ -527,7 +511,7 @@ go.
    to bring it to the foreground even though it visually is. Likely there is
    some Xserver or Alttab setting that forces the Xwindow on top to always have
    the focus.
- - Screen resolution auto update on viewer size change  
+ - **Screen resolution auto update on viewer size change**  
    With the ideal scenario of the Xserver onthe container updating its display
    resolution to match that of the VNC viwere client It would be good to make
    all Xwindows also be notified to change their dispaly to be the new fullsize
@@ -576,8 +560,7 @@ which in unix land start with a `.` hence the name dotfiles.
    programs, the problem is that they are not stored in a standard way and in
    order to be able to have repeatable user experience we want to be able to
    store them in a git repository which also allows for verioning if a new
-   configuration doesn't result in desired affect for example.
-   
+   configuration doesn't result in desired affect for example.  
    **Solution**  
    Fortunatley the GNU team are to our rescue again, with GNU Stow. Stow is a
    symlink farm manager. What this means is that you can set up a standard
@@ -593,7 +576,6 @@ which in unix land start with a `.` hence the name dotfiles.
    situtaion that conflicted with how GNU Stow works, it doen't expect there to
    be any files in the directory that stow is called from, only directories this
    caused anerror running the stow part of the config  
-    
    **Solution**  
    Use the Unix supported concept of globs for directory wildcarding in the form
    of `*/` to skip any file thats not a folder in the dotfiles directory. It
@@ -606,7 +588,6 @@ which in unix land start with a `.` hence the name dotfiles.
    and likely has some system specific configurations, and you want to add your
    own customisations but you don't want to forgo any of the system generated
    defaults.  
-    
    **Solution**  
    I solved this by implementing a script which appends to the end of a file, it
    uses git to merge the files so that if the change is already in the .bashrc
@@ -619,14 +600,13 @@ which in unix land start with a `.` hence the name dotfiles.
    session, I didn't want it to be always appending to the end of the path, I
    was concerned about (and experienced) multiple additions of the same
    directory to the end of the path.  
-    
    **Solution**  
    I implemented a script that I stored in my bash functions to only add to the
    path if it didn't already exist in the path, inspiration for the script came
    from [here](https://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there)
 
 #### Limitations and Future Considerations
- - Spacemacs Submodule  
+ - **Spacemacs Submodule**  
    Currently I'm using the develop branch of Spacemacs, this branch allows the
    latest build but doesn't provide an easy way to update, you need to perform a
    git pull. I wanted to include it in my dotfiles for tracking of the changes

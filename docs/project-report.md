@@ -207,6 +207,7 @@ installed on top of.
     the base images don't contain an X server for rendering GUI applications and
     the console connections are all text based. While emacs and Spacemacs both
     can run in a shell the user experience these days is much nicer in a GUI.  
+
     **Solution**  
     The solution is to install an Xserver onto the Docker image and a virtual
     network computing (VNC) server to be able to remote desktop in and interact
@@ -244,6 +245,7 @@ installed on top of.
    One of the ideal user experiences would be to have the Xwindow screen resolution
    automatically set to the size of the VNC viewer used to connect to the VNC
    server.  
+
     **Solution**  
     One of the advantages of switching to Xtigervnc is that it allows fo rthis
     very thing to happen, but currently only for tigervnc clients but it
@@ -262,6 +264,7 @@ installed on top of.
     security risk and slower than their VNC (Over SSH counterparts) REFERENCE
     NEEDED https://computing.cs.cmu.edu/security/security-xserver
     https://www.nas.nasa.gov/hecc/support/kb/index.php?View=entry&EntryID=257&EntryTitle=vnc-a-faster-alternative-to-x11&mobile=0  
+
    **Solution**  
    The solution for part one was to use Docker Build Secrets
    https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information
@@ -287,6 +290,7 @@ installed on top of.
  - **Build Automation**  
     Docker is wonderful but you can end up needing to pass in a lot of commands
     to build the images securely.  
+
     **Solution**  
     There is docker compose but as mentioned above 
     there was a need for developing my own build script to incorporate Docker
@@ -298,6 +302,7 @@ installed on top of.
    Mac Laptops and keyboards/mice dont have some common keys or buttons that
     Linux applications expect, namely the middle mouse button or the insert
     button, both of these are expected to be able to paste into an xterm window.  
+
    **Solution**  
    After scouring the [xterm
    manual](https://invisible-island.net/xterm/manpage/xterm.html) and
@@ -428,6 +433,7 @@ go.
    One of the things for installing new Linux systems is the time it takes to
    install all the packages, I experimented with running these in parralell
    unsuccessfully.  
+
    **Solution**  
    The way the package manager locks resources is not easily polled, the lock
    file always exists so it's not enough to simply check if the file exists or
@@ -446,6 +452,7 @@ go.
    connected to a TTY it will suspend the program, this allows the user to
    manually set the suspended program to run in the foreground in order to
    interact with it.  
+
    **Solution**  
    The solution here was to determine which subprocessess needed IO even if only
    on program errors and to set them with prompt=true in the config so that they
@@ -455,7 +462,8 @@ go.
    Initially I had matapihi and wakhiki as private GH repos and I wanted to clone
    the repos at runtime so that I could develop on them immediatly when
    launching into a container during the dev process. I would be prompted for a
-   username and password each time for each private repo
+   username and password each time for each private repo  
+
    **Solution**  
    To be able to pull the repos without being prompted for a password each time
    I set up a script that would generate a SSH key for me and then upload that
@@ -471,6 +479,7 @@ go.
    so after the dotfiles are stowed you need an SSH key uploaded to github in
    order to be able to pull or push so this causes futher failures in the rest
    of the github clones/pulls specified in the config if you don't upload a key.  
+
    **Solution**  
    There is two fixes here, prompt for user on GH key upload so people can
    upload their own key to their own account if they have set up a github access
@@ -485,6 +494,7 @@ go.
    causing wakahiki to prompt the user if they want to abort or continue. The
    rerun would happen anytime you exited the matapihi program and then
    reconnected the VNC client.
+
    **Solution**  
    The solution was to go through and inspect all the scripts that wakahiki
    called as specified by the kainga-conf files and modify all the scripts to
@@ -561,6 +571,7 @@ which in unix land start with a `.` hence the name dotfiles.
    order to be able to have repeatable user experience we want to be able to
    store them in a git repository which also allows for verioning if a new
    configuration doesn't result in desired affect for example.  
+
    **Solution**  
    Fortunatley the GNU team are to our rescue again, with GNU Stow. Stow is a
    symlink farm manager. What this means is that you can set up a standard
@@ -576,6 +587,7 @@ which in unix land start with a `.` hence the name dotfiles.
    situtaion that conflicted with how GNU Stow works, it doen't expect there to
    be any files in the directory that stow is called from, only directories this
    caused anerror running the stow part of the config  
+
    **Solution**  
    Use the Unix supported concept of globs for directory wildcarding in the form
    of `*/` to skip any file thats not a folder in the dotfiles directory. It
@@ -588,6 +600,7 @@ which in unix land start with a `.` hence the name dotfiles.
    and likely has some system specific configurations, and you want to add your
    own customisations but you don't want to forgo any of the system generated
    defaults.  
+
    **Solution**  
    I solved this by implementing a script which appends to the end of a file, it
    uses git to merge the files so that if the change is already in the .bashrc
@@ -600,6 +613,7 @@ which in unix land start with a `.` hence the name dotfiles.
    session, I didn't want it to be always appending to the end of the path, I
    was concerned about (and experienced) multiple additions of the same
    directory to the end of the path.  
+
    **Solution**  
    I implemented a script that I stored in my bash functions to only add to the
    path if it didn't already exist in the path, inspiration for the script came

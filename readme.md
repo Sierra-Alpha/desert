@@ -248,10 +248,10 @@ then clone my kainga-conf repo and install wakahiki the multithreaded script
 loader also part of this collection here. Then it will load all the config as
 setout in the kainaga-conf. 
 
-In the kainga-conf there will be one bit about loading a key to GitHub under my
-profile which you will want to use `q` to skip, it will look like this. 
-
-![image](./docs/images/ssh-key-to-gh.png)
+Part of this loading will prompt you to generate and upload an SSH key to GitHub,
+you can safely skip this step by passing in a blank user name, and all pulls
+will use HTTPS, if you want to upload the key using this script you'll need a 
+Personal Access Token with write access to User keys, see the [GitHub Docs](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) for more info
 
 After all that is loaded eventually it will start the emacs server and then
 launch emacs and you're in.

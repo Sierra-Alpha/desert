@@ -35,7 +35,8 @@ with a preferred setup.
 
 ## Description
 
-Kainga is the Te Reo Moari word for home, it is implemented as follows.
+Kainga is the Te Reo Moari word for home, it's purpose is to let you feel at
+home wherever you may be, it is implemented as follows.
 
 Kainga is a way of setting up containerised Xserver and virtual network
 computing (VNC) connections over a Secure Shell (SSH) tunnel. This allows
@@ -52,13 +53,13 @@ Next once SSH'd into the container and port forwarding to the containers 5900
 (VNC) port, you then access the container through a VNC viewer. At this point
 the matapihi init will be launched where you can add urls to scripts to run at
 the initial VNC client connection, also available is an exit script for tearing
-doan an environment when the VNC exits.
+down an environment when the VNC exits.
 
 The script provided in the matapihi init needs to call some application to run
 in the foreground else the script will finish and cause the Xserver to prompt
 for exiting.
 
-In this `kainga` use of matapihi we run a script hosted in my `kainga-conf`
+In `kainga`'s use of matapihi we run a script hosted in my `kainga-conf`
 repo that installs `wakahiki` (The Te Reo Moari word for crane, as it picks up
 the scripts and builds the container with them) which reads from the
 kainga-conf file in the kainga-conf repo and then sets up the environment
@@ -224,7 +225,7 @@ this (the highlight is what I've pasted in):
 
 ![image](./docs/images/paste-start-url.png)
 
-heres what I use, for the startup script, I paste into the prompt the following:
+Heres what I use, for the startup script, I paste into the prompt the following:
 
 ```shell
 https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-bootstrap
@@ -237,7 +238,7 @@ in is highlighted)
 
 ![image](./docs/images/paste-exit-url.png)
 
-then for the exit script I paste in the following (shown in the highlight above)
+Then for the exit script I paste in the following (shown in the highlight above)
 
 ```shell
 https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-exit
@@ -263,7 +264,7 @@ tab out of the spare terminal to get to the exit prompt), follow the prompts to
 exit. You may even like to restart the docker conatiner, this will free up some
 memory for the host as it uses more memory to install than it needs to run, if
 you do this you will need to reconnect the SSH tunnel. Then reconnect the VNC
-client, this will reload and this time when emacs starts then it should display 
+client, this will reload and when emacs starts then it should display 
 correctly.
 
 You can navigate to a terminal using `alt` + `tab` or pull one up in emacs by
@@ -284,8 +285,8 @@ Happy Hacking!
 Above we walked you through how to get up and running with my config, but the
 idea is for kainga to be your home, not mine so lets walk through how to
 configure it. In the interest of seperation of concerns the various aspects that
-make up this project have been seperated into their respective repos that you
-can read specific guidance on at their respective repos listed after each
+make up this project have been seperated into their respective repos. You
+can read specific guidance at their respective repos listed after each
 heading if applicable.
 
 ### Matapihi
@@ -316,7 +317,8 @@ contaier to be able to access
 the host directory above
  - `<container-name>` A name to easily identify this particular container instance
 of the `matapihi` image
- - `<current-version>` The current version (0.1.0) of matapihi image to use  
+ - `<current-version>` The current version (see [current submodules for the
+ latest](#current-submodule-versions)) of matapihi image to use   
 
 Now that is done the SSH Tunnel has some configurable options too
 
@@ -330,7 +332,7 @@ ssh [-fNT] -p <host-port-to-use> matapihi@<container-address> -L <host-port-to-f
    on matapihi, ususally I use 59000
  - `<container-address>` The address of the container, most likely `localhost`, you
 can probably use a different address for a machine that isn't the host if the
-host is configured to accept incoming connections on the `<host port to use>`
+host is configured to accept incoming connections on the `<host-port-to-use>`
 specified earlier although this hasn't been tested yet.
 
 Next matapihi will prompt you for some urls that point to scripts that you want

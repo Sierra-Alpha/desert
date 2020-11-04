@@ -1,13 +1,14 @@
 # Kaianga - Project
+#### Shaun Alexander - 18041577 - 247310 - 2020 Sem 2
+
 <details>
   <summary> Table of Contents</summary>
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [Draft version 1-11-2020](#draft-version-1-11-2020)
-- [Project](#project)
+- [Kaianga - Project](#kaianga---project)
+    - [-](#-)
     - [Introduction](#introduction)
-        - [-](#-)
     - [Inspiration](#inspiration)
         - [Problem Statement](#problem-statement)
     - [Overview](#overview)
@@ -39,7 +40,8 @@
 
 To build any software you need the right tools, and you need flexibility, the
 idea that you can sit at any terminal and start coding in a way that is familiar
-to you gives way to this project. 
+to you gives way to this project. Kainga is Te Reo Moari for home, and this
+project is about having a familiar developer environment no matter where you are.
 
 ## Inspiration
 
@@ -154,8 +156,9 @@ a way to still pursue this, see the [Limitations and Future
 Considerations](#limitations-and-future-considerations) for this section)
 
 One decision that is worth mentioning here is the decision to use a Linux
-image inside the container, this came down to two things, I chose Debian because familiarity with
-Debian from experiments with Raspberry Pi's and Raspbian and the fact that Emacs
+image inside the container, this came down to two things, I chose Debian because
+of my familiarity with
+Debian from experiments with Raspberry Pi's and Raspbian also the fact that Emacs
 is best supported on Linux and the Spacemacs experience felt the most seemless
 on a Linux operating system. 
 
@@ -167,12 +170,12 @@ and solutions that have all been implemented in the Dockerfile, the
 build instructions to Docker, to be able to build the same container every time.
 
 Particular attention was taken to keep the container image as small as possible
-and to only install what was required to achieve the minimum functionality of a
+and to only install what was required in order to achieve the minimum functionality of a
 container that provided an Xserver, and a VNC connection of an encrypted SSH
 connection.
 
-The results of this work are known as [Matapihi](../readme.md#matapihi) Te Reo
-Moari for window as this container becomes the VNC window into the GUI Xserver
+The results of this work are known as [Matapihi](../readme.md#matapihi), Te Reo
+Moari for window, as this container becomes the VNC window into the GUI Xserver
 environment running on the container.
 
 Matapihi is the container image and the initialisation script that runs on it,
@@ -191,7 +194,7 @@ the process is as follows.
     example launching firefox or in this case emacs in the foreground.
  7. The Xserver will stay up untill the user exits the running program
  8. When a user reconnects the same start up script that was previously loaded 
-    will run again, it's improtant that the start up scripts (and exit script) are
+    will run again, it's important that the start up scripts (and exit script) are
     idempotent for desired results.
 
 This provides the infrastructure platform for the rest of the environment to be
@@ -200,14 +203,14 @@ installed on top of.
 #### Issues and Solutions
 
  - **Spacemacs is better in a GUI**  
-    Docker containers are mainly set up to host shell applications and as such
+    Docker containers are mainly set up to host shell applications, as such
     the base images don't contain an X server for rendering GUI applications and
     the console connections are all text based. While emacs and Spacemacs both
-    can run in a shell the user experience these days is much nicer in a GUI.  
+    can run in a shell the user experience is much nicer in a GUI.  
 
     **Solution**  
     The solution is to install an Xserver onto the Docker image and a virtual
-    network computing (VNC) server to be able to remote desktop in and interact
+    network computing (VNC) server to be able to connect as a remote desktop and interact
     with the chosen application running in a Docker container. My first avenue
     was to install a full Desktop environment onto the linux core and a VNC
     server to be able to control it remotely. This was expensive in terms of
@@ -224,7 +227,7 @@ installed on top of.
     connecting to the VNCserver.  
 
     Whilst this solution worked well there was an even better solution in the
-    form of Xvnc server, an X and VNC server in one package, this saved a futher
+    form of [Xvnc](https://tigervnc.org/doc/Xvnc.html) server, an X and VNC server in one package, this saved a futher
     100mb in the continer image and has the added benefit of beinga able to
     resize the Xserver to suit the display size of a compatable VNC viewer.
     Using the aforementioned x11vnc and xvfb worked well to determine the proof
@@ -232,11 +235,12 @@ installed on top of.
     Xsession Configuration and user config loading, so whilst I used x11vnc and
     xvfb for most of the project due to the seperation of concerns with this
     heirachy it made it very easy to change the undelying X and VNC server with
-    realtivly little effort. One of the main reasons for changeing was upstream
+    realtivly little effort. One of the main reasons for changing was upstream
     maintenance of the x11vnc package, it appears the main contributor is no
     longer contactable and it has been stagnant for some years where as the Xvnc
     project is well supported and used by the Debian package of
-    xtigervnc-standalone-server used in this implementation 
+    [xtigervnc-standalone-server](https://manpages.debian.org/buster/tigervnc-standalone-server/tigervncserver.1.en.html)
+    used in this implementation 
     
  - **Screen resolution**  
    One of the ideal user experiences would be to have the Xwindow screen resolution
@@ -244,9 +248,9 @@ installed on top of.
    server.  
 
     **Solution**  
-    One of the advantages of switching to Xtigervnc is that it allows fo rthis
+    One of the advantages of switching to Xtigervnc is that it allows for this
     very thing to happen, but currently only for tigervnc clients but it
-    certainly works from the containers point of view. When it comes to the User
+    certainly works from the containers point of view. When it comes to user
     land an improvement would be to resize all windows when a screen resolution
     is adjusted, this is discussed in more detail in the [Limitations and Future
     Considerations of the Installation Config Section](#limitations-and-future-considerations-1)
@@ -256,32 +260,33 @@ installed on top of.
     security of the build process and security of the conatainer at runtime,
     where also connecting to the container over the wire. For the build process
     the use of passwords would mean that any password used at build time would
-    be available to any body that later pulled the image from Dockerhub. For
+    be available to anybody that later pulled the image from Dockerhub. For
     runtime there was alot of information about forwarding X servers being a
-    security risk and slower than their VNC (Over SSH counterparts) REFERENCE
-    NEEDED https://computing.cs.cmu.edu/security/security-xserver
+    security risk and slower than their VNC (Over SSH counterparts). One of the
+    many articles discussing this can be found [here](
     https://www.nas.nasa.gov/hecc/support/kb/index.php?View=entry&EntryID=257&EntryTitle=vnc-a-faster-alternative-to-x11&mobile=0  
+    ).
 
    **Solution**  
-   The solution for part one was to use Docker Build Secrets
-   https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information
+   The solution for part one was to use [Docker Build Secrets](
+   https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information)
    at the time of developing there was no way to use these with docker copose so
    I wrote my own build script (`docker_compose_with_secrets.py`) which would
    read a config file and build the right arguments to pass to a Docker Build
    command. This allowed me to pass in file paths that contained the secrets
    rather than the secrets themselves so no meta data is left in the docker
    layer of the images. Later I decided it was safer to force users to renew
-   their passwords on initial run so the use of the script is much less required
-   but still would serve a use where you wanted to build a container with hidden
+   their passwords on initial run so the use of there is less need for the script
+   but would still serve a use if you wanted to build a container with hidden
    secrets but still host it online in a public domain.  
    
-   For the second of these issues with the GUI connection to the container it
+   For the second of these issues with the GUI connection to the container VNC
    required using self signed certificates or a Certificate Authority issued
    Cert for the full scale encrypted traffic using the VNC Server implementation
    but its also well documented that you can forward ports over the internets
-   defacto encryption software SSH. REFERENCE NEEDED So the SSH server handles
-   the encrypted traffic connection and user authentication, then at VNC client
-   log on the client needs to authenticate again with another password for the
+   defacto encryption software [SSH](https://www.ssh.com/ssh/tunneling/). So the SSH server handles
+   the encrypted traffic connection and user authentication, and at the VNC client
+   logon the client needs to authenticate again with another password for the
    VNC server. 
 
  - **Build Automation**  
@@ -305,16 +310,16 @@ installed on top of.
    manual](https://invisible-island.net/xterm/manpage/xterm.html) and
    experimenting with the options regarding custom key bindings and Xresources
    configuration I was able to determine a way to add right click and ctrl +
-   shift + v paste to support Mac hardware.
+   shift + v paste to support Mac hardware using the Xresources file.
 
 #### Limitations and Future Considerations
  - **docker console at root**  
    Currently if you log into the container through the docker host you will be
    granted acess as root without needing to enter a password, this is  a side
-   effect needing to run an SSH server as part of the startup command, the SSH
+   effect of needing to run an SSH server as part of the startup command, the SSH
    server needs to be started as root but we run the Xserver in userland. I'm
    not sure how much of an issue this is given that if somebody had access to
-   the docker host like that they would have more access to more sensitive areas
+   the docker host like that they would have access to more sensitive areas
    of your computer than this container. I would need to look at configuring
    this a different way so that we could launch the SSH server earlier in the
    docker file.
@@ -322,15 +327,15 @@ installed on top of.
    [No Vnc](https://novnc.com/info.html) is a client for VNC connections that
    can run in a browser, this could be a way to allow even easier access to the
    VNC server, it could be an interesting develoment if the container also
-   served the VNC client software over the internet to allow connection through
+   served the VNC client software over the internet to allow VNC connections through
    the browser. 
  - **Multiple Clients**  
-   I can see a use case for wanting to connect to the Container again, to a
+   I can see a use case for wanting to connect to the container again, to a
    different Xserver display, for example if you had one project open in one VNC
-   Client and you wanrted to seperate it totally from your work on another
+   client and you wanted to seperate it totally from your work on another
    project, or you wanted to take advantage of multiple screens by having a VNC
    client runnning at fullscreen on both physical displays. I see this as a
-   lower priority improvement as the nature of containers is if you want to
+   lower priority improvement as the nature of containers is that if you want to
    duplicate the functionality you can just spin up another container and access
    it independently.
  - **podman systemd**  
@@ -338,22 +343,22 @@ installed on top of.
    systemd very well, the idea is that each container should be running an
    individual service, an ethos we are clearly breaking in this implementation,
    unless you argue that the service we are offereing is a home like environment
-   where ever you go. Systemd is useful because it can start multiple programs
-   and restart them on failure, and podman (a similar containerisation
-   technology) supports use of systemd as this
+   wherever you go. Systemd is useful because it can start multiple programs
+   and restart them on failure, and Podman (a similar containerisation
+   technology to Docker) supports use of systemd as this
    [article](https://developers.redhat.com/blog/2019/04/24/how-to-run-systemd-in-a-container/)
    shows. Running systemd in a container could help deal with the first
    limitation about accessing the console through the docker dashboard as root
-   by allowing us to launch the SSH server as root but having the app entry
-   point as the user also it would avoid the need to have the Xvnc server
-   running in a loop because it could restart this program too on exit.
+   by allowing us to launch the SSH server as root, but have the app entry
+   point started as the user. This would also avoid the need to have the Xvnc server
+   running in a loop because it could restart the VNC program on exit.
    I steered away from podman because it only runs on Linux
    hosts and I wanted to be able to run the kainga suite on any OS, but
    containerisation is supported by the [open container
    initiative](https://opencontainers.org/) which both docker and podman are
-   members of so in theory I should be ble to define and build my container from
+   members of so in theory I should be able to define and build my container from
    a Podman image on a linux host and then run it within a docker host
-   environment on windows or Mac.
+   environment on Windows or Mac OSX.
  - **SSH script to rename VNC passwd**  
    At the moment it's quite a manual process for the user to SSH into the container to set a new
    password for VNC and to regenerate new SSH keys for the matapihi container,
@@ -365,15 +370,15 @@ installed on top of.
    physical machine to the container and to turn off password authentication so
    that only known hosts could connect to the containers
  - **Machine Names**  
-   Docker images contain a randome unique string as the hostname, it could be
-   nice to generate this as a user set name with a unique suffix if required.
+   Docker images contain a random unique string as the hostname, it could be
+   nice to generate this as a user set hostname with a unique suffix if required.
 
 ## Installation Config
 
 ### Requirements
 
 The installation config needs to provide a way of being able to replicate a
-systems installed software it shouldn't rely on any software that may be
+systems installed software, it shouldn't rely on any software that may be
 installed at the Machine Infrastructure stage, this results in duplicate
 installation of some programs in some cases but most of the time the
 installation is skipped if it already exists. This concept allows for maximum
@@ -391,7 +396,7 @@ functional user experience.
 
 I realised early on that one giant bash script to set up a system would be slow
 and that a lot of set up tasks could be run in parrallel. I also realised that
-to be configurable as possible the configuration files should be seperated from
+to be as configurable as possible the configuration files should be seperated from
 the code so this lead to a program that runs scripts and a configuration
 repository that is used to tell the program what to run and when.
 
@@ -399,19 +404,19 @@ In this approach I developed a program that would read from a config file and
 launch scripts, to help with the speed of the process it uses multiple threads
 where possible and if there is no requirement from a script for IO then it will
 run in the background and print it's results upon completion. This achieves the
-speed we desire, but also allows the user software environment to be refreshed
+speed we desire, but also allows the users software environment to be refreshed
 everytime the user reconnects to the machine/container.
 
 The second part to this process was the coniguration files, I developed a basic
-scheme to be able to specify tasks in groups and then allow groups to be run
-only once pre-requisite groups had been completed but also saw the need for
+scheme to be able to specify tasks in groups, then allow groups to be run once
+pre-requisite groups had been completed. I also saw the need for
 subgroups, tasks that are very closely related to one another, to be run
 sequentially one after the other. 
 
-Also as a matter of keeping the environments as fresh as possible and as
-expected as possible across different hosts a third party software called
+As a matter of keeping the environments as fresh as possible across different
+hosts a third party software called
 gitwatch (see the [readme](../readme.md/features) for details) which
-automatically watches the config files and pushes them to github so the next
+automatically watches the config files and pushes them to github so at next
 login the environment is refreshed with the latest developments hosted on
 github. The idea is to be able to get up from one machine after exiting the
 programs running and start the system on another machine and be presented with
@@ -419,7 +424,7 @@ exactly the same environment you finished with on the last machine.
 
 The results of this work are known as [wakahiki](../readme.md#wakahiki) Te Reo
 Moari for crane as this program lifts up all the install scripts and
-deploys/runs them on the machine/conatiner, also [kainga-conf](../readme.md#kainga-conf)
+deploys/runs them on the machine/container, also [kainga-conf](../readme.md#kainga-conf)
 kainga meaing home in Te Reo Moari and this being the config to setup our
 machine/container software environment to be the same as we expect everywhere we
 go.

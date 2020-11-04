@@ -1,8 +1,4 @@
-# Draft version 1-11-2020
-___
-
-# Project
-
+# Kaianga - Project
 <details>
   <summary> Table of Contents</summary>
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
@@ -55,7 +51,7 @@ because most of the rest of my team used it, but I had dabbled with it at uni an
 hated it, and using it for work didn't change my feelings for it. I tried Vim
 because some of my uni friends had always fanboyed about it but I struggled to
 get the packages downloaded through the protected work network (I now realise
-that was probebly more related to proxy settings than Vim, but the ship has
+that was probably more related to proxy settings than Vim, but the ship has
 sailed). One of the old beards at work (disclaimer: they don't really have a
 beard, I'm more referring to their unix wizardry level) uses emacs and kept
 suggesting I use that, I gave it a go and was scared away, as most people are,
@@ -77,19 +73,20 @@ It was around now that I had discovered containerisation for another Uni paper I
 was taking on cloud and IoT. It seemed a Docker container that could run on all
 machines that housed the emacs/spacemeacs configuration that suited me was the
 answer, there were some initial hurdles, such as getting a GUI on a container
-you can read about the whole process at the 
+you can read on to learn more about the probelms faced and their solutions. 
 
 ### Problem Statement
 
-The issue I find is that I use different devices and these are different
+The issue I find is that I use different devices and on these are different
 platforms, and the developer experience is different on every machine, across
 Linux, Mac OSx and Windows I end up installing three different sets of tools to
 try and have some kind of workflow consistency across my devices. My editor of
-choice has become GNU Emacs, I'm a big fan of the opensource community and love
+choice has become [GNU Emacs](https://www.gnu.org/software/emacs/), 
+I'm a big fan of the opensource community and love
 how configurable it is but it has one downside, it's almost too configurable for
 someone starting out, and as such a community driven customisation called
-Spacemacs exists. Spacemacs is combining Vim key bindings and a more standard
-setup with a set of key bindings and packages to get a user going with Emacs
+[Spacemacs](https://www.spacemacs.org/) exists. Spacemacs is combining Vim key bindings 
+with a set of packages to get a user going with Emacs
 very quickly. Spacemacs is the configuration of Emacs that I use. And I want to
 use this in the same way across all my devices. 
 
@@ -98,12 +95,12 @@ use this in the same way across all my devices.
 The development process involved a lot of trial and error, alot of documentation
 reading from [Docker](https://docs.docker.com/), [Python
 docs](https://www.python.org/doc/), [Stack Overflow](https://stackoverflow.com/) 
-and the documentation for the included features for mentioned in the
-[readme](../readme.md#features). Lots of time spent in the man pages for bash,
-xterm, and Xvnc.
+and the documentation for the included features for kainga mentioned in the
+[readme](../readme.md#features). Lots of time spent in the man pages for [bash](https://www.gnu.org/software/bash/),
+[xterm](https://invisible-island.net/xterm/), and [Xvnc](https://tigervnc.org/doc/Xvnc.html).
 
 There was an interesting turn about a quater of the way through this project where I
-could actually work inside the container and environment I was developing, so a
+could actually work inside the container and the environment I was developing, so a
 kind of inception started to take place where I was developing the container and
 environment inside of the very container and environment I was developing...
 
@@ -112,7 +109,7 @@ everything up until user interaction, but I realised that there was usefullness
 in having user config setup seperate to the container because this gave the
 oppourtunity to also apply the config directly to a compatable machine without
 the need for containers. I also decided that seperating installation config from
-run time config was another good idea which lead to the following break down.
+runtime config was another good idea which lead to the following break down.
 
 In the end the project boiled down to three main areas, 
  - [Machine Infrastructure](#machine-infrastructure) - The underlying computer,
@@ -142,7 +139,7 @@ but heavy, and you can't always install them on every machine. Containers are mu
 more lightweight and portable and mostly installable everywhere so I persued
 this avenue. But this approach wasn't totally easy to setup. 
 
-the minimum the system needs to support is an Xserver, a VNC connection for
+The minimum the system needs to support is an Xserver, a VNC connection for
 viewing the Xwindows remotely and an SSH server to allow a secure tunnel of
 encrypted traffick to the VNC server.
 
@@ -166,8 +163,8 @@ The process involved lots of trial and error, Docker allows you to clone images
 but from a
 security point of view I wanted to make sure that I knew everything that I had
 chosen to install and why it was configured as such. Below is a list of issues
-and solutions and as such they have all been implemented in the Dockerfile, the
-build instructions to Docker to be able to build the same container every time.
+and solutions that have all been implemented in the Dockerfile, the
+build instructions to Docker, to be able to build the same container every time.
 
 Particular attention was taken to keep the container image as small as possible
 and to only install what was required to achieve the minimum functionality of a
@@ -175,7 +172,7 @@ container that provided an Xserver, and a VNC connection of an encrypted SSH
 connection.
 
 The results of this work are known as [Matapihi](../readme.md#matapihi) Te Reo
-Moari for window as this container become the VNC window into the GUI Xserver
+Moari for window as this container becomes the VNC window into the GUI Xserver
 environment running on the container.
 
 Matapihi is the container image and the initialisation script that runs on it,

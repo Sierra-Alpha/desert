@@ -390,16 +390,16 @@ execute in multithreaded fashion where possible.
  - `prompt` (optional default=false) will run connected to the stdout/stderr and
    stdin so users can interact with the process as need be, processes that prompt
    users may cause the program to stop if this is not set to true.
- - `priority` (optional, default=0)will run the subgroups in this order,
+ - `priority` (optional, default=0) will run the subgroups in this order,
    duplicate values are run in an undefined order amongst themselves but still
    in order relative to other values.
- - `root` (optional default=false) will run a sudo echo command before running
+ - `root` (optional default=false) will run a `sudo echo` command before running
    the supplied command, the supplied commands still need to use sudo as
-   required but this is to try and prompt once for many scripts that may require
+   required. This is to try and prompt once for many scripts that may require
    it.
  - `script` (required) the scripts you want to run in a format that a python
-   `subprocess.run()` would expect to recieve, for example `["bash", "-c",
-   "echo", "Hello World"]`
+   [subprocess.run()](https://docs.python.org/3/library/subprocess.html) would
+   expect to recieve, for example `["bash", "-c", "echo", "Hello World"]`
 
 The second group is an example of the minimum required for wakahiki to run the
 supplied scripts 

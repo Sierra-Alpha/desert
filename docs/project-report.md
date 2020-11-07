@@ -1,13 +1,10 @@
 # Kaianga - Project
-#### Shaun Alexander - 18041577 - 247310 - 2020 Sem 2
+#### Shaun Alexander - 18041577 - 247310 - 2020 DBLE
 
-<details>
-  <summary> Table of Contents</summary>
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
 - [Kaianga - Project](#kaianga---project)
-    - [-](#-)
     - [Introduction](#introduction)
     - [Inspiration](#inspiration)
         - [Problem Statement](#problem-statement)
@@ -34,7 +31,6 @@
     - [Conclusion](#conclusion)
 
 <!-- markdown-toc end -->
-</details>
 
 ## Introduction
 
@@ -46,20 +42,20 @@ project is about having a familiar developer environment no matter where you are
 ## Inspiration
 
 The inspiration came because I have multiple OS's that I develop on, Windows,
-Linux and MacOS, both for work and home, I used to use VS Code but my remote
-connection for work was over a Citrix Session and some how VS Code caused the
-Citrix session to crash so I had to get used to different tools. I tried Eclipse
+Linux and MacOS, both for work and home, I used to use [VS Code](https://code.visualstudio.com/) but my remote
+connection for work was over a [Citrix](https://www.citrix.com/) Session and some how VS Code caused the
+Citrix session to crash so I had to get used to different tools. I tried [Eclipse](https://www.eclipse.org/ide/)
 because most of the rest of my team used it, but I had dabbled with it at uni and
-hated it, and using it for work didn't change my feelings for it. I tried Vim
+hated it, and using it for work didn't change my feelings for it. I tried [Vim](https://www.vim.org/about.php)
 because some of my uni friends had always fanboyed about it but I struggled to
 get the packages downloaded through the protected work network (I now realise
 that was probably more related to proxy settings than Vim, but the ship has
 sailed). One of the old beards at work (disclaimer: they don't really have a
-beard, I'm more referring to their Unix wizardry level) uses emacs and kept
+beard, I'm more referring to their Unix wizardry level) uses [emacs](https://www.gnu.org/software/emacs/) and kept
 suggesting I use that, I gave it a go and was scared away, as most people are,
 then in time I got used to it, then I fell to the _evil_ side combining Vim
 keybindings with emacs power, and then it was time to delve into the beautiful
-pre-configured emacs that is spacemacs. I knew within hours of trying it that I
+pre-configured emacs that is [spacemacs](https://www.spacemacs.org/). I knew within hours of trying it that I
 wanted to use it as my development tool, I set up configuring it in my Linux
 environment and loved it, I went to use it on my Windows environment and at
 first glance everything seemed to be the same out of the box which was very
@@ -116,7 +112,7 @@ runtime config was another good idea which lead to the following break down.
 In the end the project boiled down to three main areas, 
  - [Machine Infrastructure](#machine-infrastructure) - The underlying computer,
    whether that is a physical machine, a virtual machine or a container
- - [Initialisation Config](#initialisation-config) - The installation of
+ - [Installation Config](#instillation-config) - The installation of
    software and loading of the config required for the expected programs
  - [Runtime Config](#runtime-config) - The software customisations that an
    individual user expects, the things that personalise their environment 
@@ -153,12 +149,12 @@ PodMan from Red Hat for a time because they supported systemd which might have
 helped with running multiple background tasks, but they only supported linux
 hosts which clashed with the ideal of being a multi OS solution (there might be
 a way to still pursue this, see the [Limitations and Future
-Considerations](#limitations-and-future-considerations) for this section)
+Considerations](#limitations-and-future-considerations) for this section).
 
 One decision that is worth mentioning here is the decision to use a Linux
 image inside the container, this came down to two things, I chose Debian because
 of my familiarity with
-Debian from experiments with Raspberry Pi's and Raspbian also the fact that Emacs
+Debian, from experiments with Raspberry Pi's and Raspbian, also the fact that Emacs
 is best supported on Linux and the Spacemacs experience felt the most seamless
 on a Linux operating system. 
 
@@ -180,19 +176,20 @@ environment running on the container.
 
 Matapihi is the container image and the initialisation script that runs on it,
 the process is as follows.
+
  1. Config file is populated with relevant information such as image version
-    number, secret file locations and other build args
+    number, secret file locations and other build args.
  2. Image is built using specialised script (python file
-    `docker_compose_with_secrets.py`)
+    `docker_compose_with_secrets.py`).
  3. Image is run as a Container (see [kainga readme](../readme.md) for more
-    info)
+    info).
  4. User connects with SSH and performs some security enhancements, and sets up
-    the SSH tunnel to the container
- 5. The user connects a VNC viewer through the SHH tunnel to the container
+    the SSH tunnel to the container.
+ 5. The user connects a VNC viewer through the SHH tunnel to the container.
  6. This for the first time launches the initialisation script which prompts
     users for scripts to run at login, these scripts need to be blocking,
     example launching Firefox or in this case emacs in the foreground.
- 7. The Xserver will stay up untill the user exits the running program
+ 7. The Xserver will stay up untill the user exits the running program.
  8. When a user reconnects the same start up script that was previously loaded 
     will run again, it's important that the start up scripts (and exit script) are
     idempotent for desired results.
@@ -240,7 +237,7 @@ installed on top of.
     longer contactable and it has been stagnant for some years where as the Xvnc
     project is well supported and used by the Debian package of
     [xtigervnc-standalone-server](https://manpages.debian.org/buster/tigervnc-standalone-server/tigervncserver.1.en.html)
-    used in this implementation 
+    used in this implementation.
     
  - **Screen resolution**  
    One of the ideal user experiences would be to have the Xwindow screen resolution
@@ -253,7 +250,7 @@ installed on top of.
     certainly works from the containers point of view. When it comes to user
     land an improvement would be to resize all windows when a screen resolution
     is adjusted, this is discussed in more detail in the [Limitations and Future
-    Considerations of the Installation Config Section](#limitations-and-future-considerations-1)
+    Considerations of the Installation Config Section](#limitations-and-future-considerations-1).
 
  - **Security**  
     So much could be written about security here, there's two things to consider,
@@ -276,16 +273,16 @@ installed on top of.
    command. This allowed me to pass in file paths that contained the secrets
    rather than the secrets themselves so no meta data is left in the docker
    layer of the images. Later I decided it was safer to force users to renew
-   their passwords on initial run so the use of there is less need for the script
+   their passwords on initial run so now there is less need for the script
    but would still serve a use if you wanted to build a container with hidden
    secrets but still host it online in a public domain.  
    
-   For the second of these issues with the GUI connection to the container VNC
-   required using self signed certificates or a Certificate Authority issued
-   Cert for the full scale encrypted traffic using the VNC Server implementation
+   For the second of these issues, the GUI connection to the container VNC
+   required self signed certificates or a Certificate Authority issued
+   certificate for the encrypted traffic using the VNC Servers implementation
    but its also well documented that you can forward ports over the internet's
    defacto encryption software [SSH](https://www.ssh.com/ssh/tunneling/). So the SSH server handles
-   the encrypted traffic connection and user authentication, and at the VNC client
+   the encrypted traffic connection and user authentication, and at the VNC clients
    logon the client needs to authenticate again with another password for the
    VNC server. 
 
@@ -367,14 +364,14 @@ installed on top of.
  - **SSH script to rename VNC passwd**  
    At the moment it's quite a manual process for the user to SSH into the container to set a new
    password for VNC and to regenerate new SSH keys for the matapihi container,
-   it would be good to to capture this into a script that the user could run
+   it would be good to capture this into a script that the user could run
    more easily.
 
  - **Certs SSH Keys**  
    It would be nice to also add instructions (or a script) for adding the public
    SSH key of the
    physical machine to the container and to turn off password authentication so
-   that only known hosts could connect to the containers
+   that only known hosts could connect to the containers.
 
  - **Machine Names**  
    Docker images contain a random unique string as the hostname, it could be
@@ -422,11 +419,11 @@ sequentially one after the other.
 
 As a matter of keeping the environments as fresh as possible across different
 hosts a third party software called
-gitwatch (see the [readme](../readme.md/features) for details) which
-automatically watches the config files and pushes them to github so at next
+gitwatch (see the [readme](../readme.md#features) for details) was used.
+Gitwatch automatically watches the config files and pushes them to github so at next
 login the environment is refreshed with the latest developments hosted on
-github. The idea is to be able to get up from one machine after exiting the
-programs running and start the system on another machine and be presented with
+github. The idea is to be able to get up from one machine 
+and start the system on another machine and be presented with
 exactly the same environment you finished with on the last machine. 
 
 The results of this work are known as [wakahiki](../readme.md#wakahiki) Te Reo
@@ -471,12 +468,12 @@ go.
    Initially I had matapihi and wakahiki as private GH repos and I wanted to clone
    the repos at runtime so that I could develop on them immediately when
    launching into a container during the dev process. I would be prompted for a
-   username and password each time for each private repo  
+   username and password each time for each private repo.  
 
    **Solution**  
    To be able to pull the repos without being prompted for a password each time
-   I set up a script that would generate a SSH key for me and then upload that
-   to github for me using my personal access token that it would prompt me for
+   I set up a script that would generate a SSH key and then upload that
+   to github using my personal access token that it would prompt me for
    during the install, this meant one pass phrase and I could clone/pull all my
    private repos. I used the config in my dotfiles to set my global git config
    to only use SSH for github remote connections, however this script solution
@@ -502,7 +499,7 @@ go.
    Re-running matapihi initialisation would cause errors for some of the scripts
    causing wakahiki to prompt the user if they want to abort or continue. The
    rerun would happen anytime you exited the matapihi program and then
-   reconnected the VNC client.
+   reconnected the VNC client.  
 
    **Solution**  
    The solution was to go through and inspect all the scripts that wakahiki
@@ -514,22 +511,22 @@ go.
 #### Limitations and Future Considerations
 
  - **Git Submodules**  
-   I looked into using Git to house the scripts located in kainga-conf/bin
+   I looked into using git submodules to house the scripts located in kainga-conf/bin
    because some of those scripts are not only useful at install time but also at
-   run time, I thought submodules would be a great way to have the bin scripts
-   as a seperate module this proved to difficult to maintain automatically to a
+   run time. I thought submodules would be a great way to have the kainga-conf/bin scripts
+   as a seperate module this proved too difficult to maintain automatically to a
    satisfactory level, so I reverted to just symlinking the bin files to the
    ~/bin/my-bin folder which has the advantage of not taking up the disk space
    twice and the scripts always being exactly the same in one place and the
-   other. In hindsight I should probably call GNU Stow on the bin files with
+   other. In hindsight I should probably call GNU Stow on the kaing-conf/bin files with
    different parameters.
 
  - **AltTab bug**  
    There is a bug in the use of Alttab in relation to this kainga package, I
    don't think it's a bug with Alttab itself but just in how I use it in this
-   setup, the bug is that when new Xwindows are launched even though they maybe
+   setup. The bug is that when new Xwindows are launched even though they maybe
    in the foreground they don't always get the keyboard input until you alt-tab
-   to bring it to the foreground even though it visually is. Likely there is
+   to bring it to the 'foreground' even though it already visually is. Likely there is
    some Xserver or Alttab setting that forces the Xwindow on top to always have
    the focus.
 
@@ -539,7 +536,7 @@ go.
    all Xwindows also be notified to change their display to be the new full size
    after the resolution changes. I've implemented a simple resize tool named
    wnrz that uses some built in functionalities of the Xserver packages to set
-   the resolution and windows to full screen in this new resolution so it would
+   the resolution and windows to full screen in the new resolution, so it would
    be a case of figuring out what event triggers occur when the resize happens
    and then running wnrz with the appropriate display size.  
 
@@ -548,9 +545,9 @@ go.
 ### Requirements
 
 This requirement is similar to the Installation Config but isn't specific to
-software installation and whats being run on a computer, but the users
+any software installation or what is being run on a computer, but the users
 customisations of the software 
-running on the computer, in the linux world these are mostly stored in dotfiles
+running on the computer. In the linux world these are mostly stored in dotfiles
 (files starting with '.' also know as hidden files). So the requirement is to be
 able to back all of these up and redeploy them with ease on new
 machines/containers. The runtime config shouldn't have any dependencies on the software
@@ -582,8 +579,8 @@ which in unix land start with a `.` hence the name dotfiles.
    used to store local customisations for user preferences for all sorts of
    programs, the problem is that they are not stored in a standard way and in
    order to be able to have repeatable user experience we want to be able to
-   store them in a git repository which also allows for versioning, foe example if a new
-   configuration doesn't result in desired affect.  
+   store them in a git repository which also allows for versioning, for example if a new
+   configuration doesn't have desired results.  
 
    **Solution**  
    Fortunately the GNU team are to our rescue again, with [GNU
@@ -599,15 +596,15 @@ which in unix land start with a `.` hence the name dotfiles.
    As part of the package setup I went through and added a license file to all
    the repositories and relevant source files. But this led to an interesting
    situation that conflicted with how GNU Stow works, it doesn't expect there to
-   be any files in the directory that stow is called from, only directories this
-   caused an error running the stow part of the config  
+   be any files in the directory that stow is called from, only directories, this
+   caused an error running the stow part of the config.  
 
    **Solution**  
    Use the Unix supported concept of globs for directory wildcarding in the form
    of `*/` to skip any file thats not a folder in the dotfiles directory. It
    even was my first ever stack overflow answer and got marked as the [accepted
    answer](https://stackoverflow.com/a/64620093/13204078) (at the time of
-   writing)
+   writing).
 
  - **Additions to the .bashrc**  
    This is a difficult one because the system generates a .bashrc for the user
@@ -631,7 +628,7 @@ which in unix land start with a `.` hence the name dotfiles.
    **Solution**  
    I implemented a script that I stored in my bash functions to only add to the
    path if it didn't already exist in the path, inspiration for the script came
-   from [here](https://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there)
+   from [here](https://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there).
 
 #### Limitations and Future Considerations
 
@@ -644,7 +641,7 @@ which in unix land start with a `.` hence the name dotfiles.
    git module included in emacs.d. I circumnavigated this by deleting the .git folder
    for the emacs.d folder but this means that I can no longer use git pull in
    that folder to update spacemacs, I should instead set this up as a git submodule
-   and add steps to pull the spacemacs when the VNC client connects also. For
+   and add steps to pull the spacemacs repository when the VNC client connects also. For
    one of the other kainga-conf changes I investigated git submodules and
    decided they weren't very useful in that situation, but this situation is
    what they are designed for and with some addition to the pull operation in
@@ -654,15 +651,15 @@ which in unix land start with a `.` hence the name dotfiles.
 
 ### Security
 
-While basic steps have been taken to achive a base level of security, encryption
-over the wire and passwords for sudo operations and logging in there is myriad
-of other potential hardening techniques that should be researched and applied
+While steps have been taken to achive a base level of security, encryption
+over the wire and passwords for sudo operations and logging in, there is
+the potential for other hardening techniques that should be researched and applied
 for this to become a production level system.
 
 ### Dependency on Debian
 
-As it stands most of the scripts are set to run with a Debian flavoured linux,
-it would be good to add support for other Linux flavours, mainly red hat based
+As it stands most of the scripts are set to run with a Debian flavoured Linux,
+it would be good to add support for other Linux flavours, mainly Red Hat based
 images because of the use inside commercial enterprises, this could be achieved
 most likely by adjusting the package scripts to determine what flavour we are on
 and then run the appropriate packaging install and updating command.
@@ -678,10 +675,10 @@ running on a container.
 Perhaps universities could have a pre-configured container with the required
 development setup for specific courses ready for students to clone and write
 assignments in, avoiding mis-matched configurations and allowing more
-standardised solutions/support for assignments from lecturers. 
+standardised solutions/support for assignments from teaching staff. 
 
 Another novel idea is to run this in a cloud environment and do development from
-local under resourced machines by connecting through to more powerful machines
+local, under resourced machines, by connecting through to more powerful machines
 running in the cloud, this could also help companies with infrastructure costs
 by not having to maintain thin clients, dev machines and cloud machine by simply
 cutting out the dev machine in between the thin client and the cloud machines.
@@ -698,3 +695,4 @@ stands it's not entirely polished but definitely useable, I'll likely continue
 to tweak on it here and there as time allows in order to keep it meeting my
 needs, but would love for it to be picked up by the open source community and
 would be keen to support it in that space.
+energy efficient POE powered computers

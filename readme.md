@@ -35,7 +35,7 @@ with a preferred setup.
 
 ## Description
 
-Kainga is the Te Reo Moari word for home, it's purpose is to let you feel at
+Kainga is the Te Reo Maori word for home, it's purpose is to let you feel at
 home wherever you may be, it is implemented as follows.
 
 Kainga is a way of setting up containerised Xserver and virtual network
@@ -45,7 +45,7 @@ platform, in this case Docker, and be accessible over a VNC viewer through a SSH
 tunnel.
 
 This implementation uses Docker for the containerisation, this part is named
-`matapihi`, the Te Reo Moari word for window, as it is the window into the
+`matapihi`, the Te Reo Maori word for window, as it is the window into the
 house, home or `~`. The container uses Xvnc to start the Xserver and provide
 the VNC server.
 
@@ -60,7 +60,7 @@ in the foreground else the script will finish and cause the Xserver to prompt
 for exiting.
 
 In `kainga`'s use of matapihi we run a script hosted in my `kainga-conf`
-repo that installs `wakahiki` (The Te Reo Moari word for crane, as it picks up
+repo that installs `wakahiki` (The Te Reo Maori word for crane, as it picks up
 the scripts and builds the container with them) which reads from the
 kainga-conf file in the kainga-conf repo and then sets up the environment
 and launches spacemacs when ready.

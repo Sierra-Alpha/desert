@@ -79,7 +79,7 @@ Sick of having to modify my IDE or editor for programming depending on what
 machine I was on, I searched for a method to be able to recreate the same
 environment across all machines, virtual machines were one option, but heavy and
 resource intensive. Research into containerisation showed that it seemed a
-Docker container that could run on all machines, this container could house the emacs/spacemeacs 
+Docker container that could run on all machines, this container could house the emacs/spacemacs 
 configuration that suited me, was the answer. There were some initial hurdles,
 such as getting a GUI on a container you can read about the whole process at the
 [project report docs](./docs/project-report.md) if you are interested.
@@ -93,12 +93,12 @@ such as getting a GUI on a container you can read about the whole process at the
 
 ## Quick Start/Install
 
-You: "Ahh you mentioned SSH tunelling, Containerisation, VNC and GUI all in one
+You: "Ahh you mentioned SSH tunneling, Containerisation, VNC and GUI all in one
 sentence up there, I just want what you have without the hassle!"
 
 Me: "Sure just do this:"
 
-You can get up and runnning using my config and you'll be able to use the system
+You can get up and running using my config and you'll be able to use the system
 to get a feel for how you could customise it and use it as your own.
 
 First you'll need to install [Docker](https://docs.docker.com/get-docker/),
@@ -225,7 +225,7 @@ this (the highlight is what I've pasted in):
 
 ![image](./docs/images/paste-start-url.png)
 
-Heres what I use, for the startup script, I paste into the prompt the following:
+Here is what I use, for the startup script, I paste into the prompt the following:
 
 ```shell
 https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-bootstrap
@@ -247,7 +247,7 @@ https://raw.githubusercontent.com/sierra-alpha/kainga-conf/master/kainga-exit
 Now matapihi will run through these scripts and install python, pip and git,
 then clone my kainga-conf repo and install wakahiki the multithreaded script
 loader also part of this collection here. Then it will load all the config as
-setout in the kainaga-conf. 
+set out in the kainga-conf. 
 
 Part of this loading will prompt you to generate and upload an SSH key to GitHub,
 you can safely skip this step by passing in a blank user name, and all pulls
@@ -261,7 +261,7 @@ Like everything that's good it's best to start it with a restart, (in spacemacs
 the mode line won't render properly till we restart) so `ctrl` + `x`, `ctrl` + `c` to
 exit emacs which will start terminating matapihi (you might need to exit or alt
 tab out of the spare terminal to get to the exit prompt), follow the prompts to
-exit. You may even like to restart the docker conatiner, this will free up some
+exit. You may even like to restart the docker container, this will free up some
 memory for the host as it uses more memory to install than it needs to run, if
 you do this you will need to reconnect the SSH tunnel. Then reconnect the VNC
 client, this will reload and when emacs starts then it should display 
@@ -284,8 +284,8 @@ Happy Hacking!
 
 Above we walked you through how to get up and running with my config, but the
 idea is for kainga to be your home, not mine so lets walk through how to
-configure it. In the interest of seperation of concerns the various aspects that
-make up this project have been seperated into their respective repos. You
+configure it. In the interest of separation of concerns the various aspects that
+make up this project have been separated into their respective repos. You
 can read specific guidance at their respective repos listed after each
 heading if applicable.
 
@@ -305,14 +305,17 @@ to mount some of your host drives into the container to be able to work on them
 from within the container, this is what I do
 
 ```shell
-docker run -d -p <host-port-to-use>:22 [--mount type=bind,source=<path/on/host>,target=<path/on/container> --name <container-name>] sierraalpha/matapihi-private:<current-version>
+docker run -d -p <host-port-to-use>:22 \
+   [--mount type=bind,source=<path/on/host>,target=<path/on/container> \
+   --name <container-name>] \
+   sierraalpha/matapihi-private:<current-version>
 ```
 
  - Everything inside the `[]` are optional
  - `<host-port-to-use>` is any unused ephemeral port, I normally use 22000 as
 SSH default is 22 so it's easy to remember
  - `<path/on/host>` is an existing directory on your host that you want the
-contaier to be able to access
+container to be able to access
  - `<path/on/container>` is the path inside the container where you want to access
 the host directory above
  - `<container-name>` A name to easily identify this particular container instance
@@ -323,13 +326,14 @@ of the `matapihi` image
 Now that is done the SSH Tunnel has some configurable options too
 
 ```shell
-ssh [-fNT] -p <host-port-to-use> matapihi@<container-address> -L <host-port-to-fwd>:<container-address>:5900
+ssh [-fNT] -p <host-port-to-use> matapihi@<container-address> \
+   -L <host-port-to-fwd>:<container-address>:5900
 ```
 
  - `[]` optional values to allow SSH tunnel to go to the background
  - `<host-port-to-use>` the same value as used above
  - `<host-port-to-fwd>` The port on the host that will be forwarded to 5900 (the VNC port) 
-   on matapihi, ususally I use 59000
+   on matapihi, usually I use 59000
  - `<container-address>` The address of the container, most likely `localhost`, you
 can probably use a different address for a machine that isn't the host if the
 host is configured to accept incoming connections on the `<host-port-to-use>`
@@ -337,7 +341,7 @@ specified earlier although this hasn't been tested yet.
 
 Next matapihi will prompt you for some urls that point to scripts that you want
 to download and run, matapihi uses `xterm` for these terminals so pasting is
-with the middle mouse button or `shift` + `insert` (also to support my macbook
+with the middle mouse button or `shift` + `insert` (also to support my Mac book
 air with no insert or middle mouse button you can `ctrl` + `shift` + `V` or
 right click to paste), which brings us too:
 
@@ -349,7 +353,7 @@ The kainga-conf repo contains all the configuration and scripts I want to run
 when matapihi loads, I use wakahiki to load all the config, this is
 specified in the `kainga-bootstrap` file. But at this point you could load
 whatever startup and exit scripts you want to run by similarly hosting them on
-an url that `wget` can access from within the container. Similarily you could keep the
+an url that `wget` can access from within the container. Similarly you could keep the
 bootstrap and exit scripts but just change the kainga-conf file to suit your
 needs, the next section on wakahiki details more about the kind of config. 
 
@@ -387,7 +391,7 @@ execute in multithreaded fashion where possible.
    allows you to specify order of script running for related subtasks, these are
    not run on multiple threads relative to other commands in the same subgroup
  - `no_wait` (optional, default=false) wakahiki will start the command in the
-   background, usefull for launching daemon processes (will ignore this if set
+   background, useful for launching daemon processes (will ignore this if set
    to run with prompt=true)
  - `prompt` (optional default=false) will run connected to the stdout/stderr and
    stdin so users can interact with the process as need be, processes that prompt
@@ -401,25 +405,25 @@ execute in multithreaded fashion where possible.
    it.
  - `script` (required) the scripts you want to run in a format that a python
    [subprocess.run()](https://docs.python.org/3/library/subprocess.html) would
-   expect to recieve, for example `["bash", "-c", "echo", "Hello World"]`
+   expect to receive, for example `["bash", "-c", "echo", "Hello World"]`
 
 The second group is an example of the minimum required for wakahiki to run the
 supplied scripts 
 
 ### Security
 
-If you're super security conscious you'll wan't to inspect all the code, checkout
+If you're super security conscious you'll want to inspect all the code, checkout
 each of the repositories for that, and you may even like to build the Docker
 container from from the Docker file, checkout the `matapihi` repo and
 specifically the
 `docker_compose_with_secrets.py` script which will read a config file and pass
-in the relavent passwords using files as arguments rather than paswords as args.
+in the relevant passwords using files as arguments rather than passwords as args.
 
 
 ## Use Cases
 
 Okay that's all great and good you say, but what would I use it for? Well as
-already mentioned to have a similar environment across machines of differeing
+already mentioned to have a similar environment across machines of differing
 OS's, perhaps you could set up a dev server that you can access from anywhere in
 the world or even have a cloud server running that you remote into to do all
 your dev work on, right there next to you're deployed web service, imagine that
@@ -435,7 +439,7 @@ in the debian repositories
  - The [GNU
  emacs](https://www.gnu.org/software/emacs/)/[spacemacs](https://www.spacemacs.org/)
  setup as mentioned above, an [xterm](https://invisible-island.net/xterm/)
- terminal, but you could add a browser such as firefox to complete the environment 
+ terminal, but you could add a browser such as Firefox to complete the environment 
  - There is no window manager, but it uses
    [alttab](https://github.com/sagb/alttab) for switching between windows 
  - [GNU Stow](https://www.gnu.org/software/stow/) to help keep track of dotfiles
@@ -467,7 +471,7 @@ were made for various aspects of the project.
 ## Licence
 
 It is intended that as much as possible is released under GPL3, see licenses.md
-for more info, this does not overide any underlying works that have different
+for more info, this does not override any underlying works that have different
 licences their original licences shall still apply to their works (But I think
 everything is GPL3 anyway)
 

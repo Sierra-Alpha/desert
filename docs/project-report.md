@@ -1,10 +1,10 @@
-# Kaianga - Project
+# Kainga - Project
 #### Shaun Alexander - 18041577 - 247310 - 2020 DBLE
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [Kaianga - Project](#kaianga---project)
+- [Kainga - Project](#kainga---project)
     - [Introduction](#introduction)
     - [Inspiration](#inspiration)
         - [Problem Statement](#problem-statement)
@@ -36,7 +36,7 @@
 
 To build any software you need the right tools, and you need flexibility, the
 idea that you can sit at any terminal and start coding in a way that is familiar
-to you gives way to this project. Kainga is Te Reo Moari for home, and this
+to you gives way to this project. Kainga is Te Reo Maori for home, and this
 project is about having a familiar developer environment no matter where you are.
 
 ## Inspiration
@@ -171,7 +171,7 @@ container that provided an Xserver, and a VNC connection of an encrypted SSH
 connection.
 
 The results of this work are known as [Matapihi](../readme.md#matapihi), Te Reo
-Moari for window, as this container becomes the VNC window into the GUI Xserver
+Maori for window, as this container becomes the VNC window into the GUI Xserver
 environment running on the container.
 
 Matapihi is the container image and the initialisation script that runs on it,
@@ -427,9 +427,9 @@ and start the system on another machine and be presented with
 exactly the same environment you finished with on the last machine. 
 
 The results of this work are known as [wakahiki](../readme.md#wakahiki) Te Reo
-Moari for crane as this program lifts up all the install scripts and
+Maori for crane as this program lifts up all the install scripts and
 deploys/runs them on the machine/container, also [kainga-conf](../readme.md#kainga-conf)
-kainga meaning home in Te Reo Moari and this being the config to setup our
+kainga meaning home in Te Reo Maori and this being the config to setup our
 machine/container software environment to be the same as we expect everywhere we
 go.
 
